@@ -1,0 +1,158 @@
+body {
+	margin: 0;
+	font-family: verdana;
+	font-size: 14px;
+}
+
+a {
+	display: inline;
+	margin-left: 25px;
+	float: left;
+	color: #000;
+	font-size: 12px;
+	text-decoration: none;
+	font-weight: bold;
+
+}
+
+a:hover {
+	color: #f06e67;
+}
+
+
+#mainDiv {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: #FFF;
+	overflow: hidden;
+
+	
+}
+/* meny*/
+#menyDiv {
+	position: absolute;
+	height: 3%;
+	width: 35%;
+	top: 10%;
+	left: 67%;
+	text-align: right;
+
+}
+/*logo*/
+#logoDiv {
+	position: relative;
+	left: 0.5%;
+	top: 3%;
+	float: left;
+	overflow: hidden;
+}
+/*login*/
+#leftAside {
+	padding: 1%;
+	left: 3%;
+	top: 17%;
+	position: absolute;
+	width: 13%;
+	height: 27%;
+	background-color: #f06e67;
+	color: #FFF;
+	font-weight: bold;
+	overflow: hidden;
+}
+/*bottom left*/
+#leftAside2 {
+	padding: 1%;
+	left: 3%;
+	top: 51%;
+	position: absolute;
+	width: 13%;
+	height: 27%;
+	background-color: #face66;
+	overflow: hidden;
+}
+
+#leftAside2 h1 {
+	color: #FFF;
+	font-weight: bold;
+	font-size: 90px;
+	margin-top: -4px;
+	margin-left: 20px;
+	line-height: 1;
+}
+
+#leftAside2 p {
+	font-size: 10px;
+	color: #FFF;
+	margin-top: -75px;
+}
+/*artikkelene som skal være på alle sidene*/
+#leftArticle {
+	position: absolute;
+	height: 100%;
+	width: 33%;
+	left: 0;
+	top: 0;
+}
+
+#leftArticle p, h1{
+	color: #FFF;
+}
+
+#leftArticle img {
+	width: 303%;
+	height: 100%;
+}
+
+#middleArticle {
+	position: absolute;
+	height: 100%;
+	width: 33%;
+	left: 33%;
+	top: 0;
+}
+
+#rightArticle {
+	position: absolute;
+	height: 100%;
+	width: 34%;
+	left: 66%;
+	top: 0;
+}
+/*center div som inneholder artiklene*/
+#centerDiv{
+	top: 17%;
+	left: 20%;
+	position: relative;
+	width: 77%;
+	height: 65%;
+
+}
+/*footer*/
+footer {
+	position: absolute;
+	width: 94%;
+	height: 3%;
+	bottom: 8%;
+	background-color:#bdbdbd ;
+	left: 3%;
+	overflow: hidden;
+}
+
+footer p {
+	text-align: center;
+	margin: 3.5px 0;
+	color: #FFF;
+	font-size: 10px;
+}
+
+
+/*responsive design */
+
+@media only screen and (min-width: 150px) and (max width: 600px)
+{
+
+
+
+
+}
