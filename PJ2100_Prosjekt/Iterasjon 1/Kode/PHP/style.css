@@ -1,0 +1,25 @@
+.roomBlock
+{
+    border: 1px solid #000;
+    display: block;
+    margin-bottom: 6px;
+    padding: 6px;
+}
+.timeBlock
+{
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 6px;
+    text-decoration: none;
+    color: #000;
+}
+.timeBlock:hover
+{
+    border: 1px solid #000;
+}
+.infoBlock
+{
+    border: 1px solid #000;
+    padding: 4px;
+    font-size: 22px;
+}
