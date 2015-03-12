@@ -17,7 +17,6 @@ require 'config.php';
     <label><input type="checkbox" name="size3" value="4" checked>4 personer</label>
     <label><input type="checkbox" name="projector" value="j">Må ha prosjektor</label>
     <input type="submit" value="Filtrer" name="filter">
-
 </form>
 
 <h2>Dato</h2>
@@ -29,105 +28,58 @@ require 'config.php';
 
     <?php
     // Get all filter variables
-    $querySizes = array(0, 0, 0);
+    $querySizes = array(2, 3, 4);
 
     $queryProjector = "%";
 
-    $queryDate = date('Y-m-d');
-    $queryDate = '2015-03-11';
-
-    $date = date('Y-m-d');
-    $date = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
-    $prevDate = date('Y-m-d', strtotime($date .' -1 day'));
-    $nextDate = date('Y-m-d', strtotime($date .' +1 day'));
-    ?>
-
-<form method="post">
-    <input type="submit" value="<" name="datePrev">
-    <label><?php echo $date; ?></label>
-    <input type="submit" value=">" name="dateNext">
-</form>
-
-    <?php
-
+    $queryDate = date("Y-m-d");//"2015-03-12"; // TODO Replace with current date (from datepicker)
 
     if (isset($_POST['filter']))
     {
         if (isset($_POST["size1"]))
             $querySizes[0] = 2;
+        else
+            $querySizes[0] = 0;
         if (isset($_POST["size2"]))
             $querySizes[1] = 3;
+        else
+            $querySizes[1] = 0;
         if (isset($_POST["size3"]))
             $querySizes[2] = 4;
+        else
+            $querySizes[2] = 0;
         if (isset($_POST['projector']))
         {
             $queryProjector = 'j';
         }
 
     }
-    if (isset($_POST['dateNext']))
-    {
-        echo "<b>_next_</b>";
-        $next = date('Y-m-d', strtotime($date .' +1 day'));
-        $date = $next;
-    }
-    if (isset($_POST['datePrev']))
-    {
-        $prev = date('Y-m-d', strtotime($date .' -1 day'));
-        $date = $prev;
-        echo "<b>_prev_</b>";
-    }
-    $queryDate = $date;
-    $queryDate = 'AND l.Dato LIKE %-%-%';
-    //echo $queryDate;
 
+    //remove sql leieavrom on expire
     // Query
     /*
-     * Få Rom oversikt og LeieAvRom oversikt i to forskjellige spørringer
+     * Få Rom oversikt og LeieAvRom oversikt (for nåværende dato) i to forskjellige spørringer
      * Så bruk rom oversikten til å vise rom, og LeieAvRom til å vise ledighet
      * foreach (room)
      *      display room info
      *      foreach (rent of this room) [query to get the rents uses the date]
      *          display red or green element
      * */
-    $sql = $db->prepare("SELECT r.RomId, r.Beskrivelse, r.Storrelse, r.Prosjektor, l.Dato, l.Tidspunkt, l.AntallTimer, b.Brukernavn, b.Epost FROM Rom AS r
-LEFT JOIN LeieAvRom AS l ON l.RomId = r.RomId
-LEFT JOIN Bruker AS b ON l.BrukerId = b.BrukerId WHERE r.Storrelse IN (:size1, :size2, :size3) AND r.Prosjektor LIKE :projector");
-//" AND l.Dato LIKE :date;");//" AND l.Dato LIKE :date;");
-    // Set parameters
-    $sql->setFetchMode(PDO::FETCH_OBJ);
-    $sql->bindParam(':size1', $querySizes[0], PDO::PARAM_STR);
-    $sql->bindParam(':size2', $querySizes[1], PDO::PARAM_STR);
-    $sql->bindParam(':size3', $querySizes[2], PDO::PARAM_STR);
-    $sql->bindParam(':projector', $queryProjector, PDO::PARAM_STR);
-    //$sql->bindParam(':date', $queryDate, PDO::PARAM_STR);
-
-    $sql->execute();
+    // Query to get all rooms
+    $roomSql = $db->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
+    $roomSql->setFetchMode(PDO::FETCH_OBJ);
+    $roomSql->bindParam(':size1', $querySizes[0], PDO::PARAM_STR);
+    $roomSql->bindParam(':size2', $querySizes[1], PDO::PARAM_STR);
+    $roomSql->bindParam(':size3', $querySizes[2], PDO::PARAM_STR);
+    $roomSql->bindParam(':projector', $queryProjector, PDO::PARAM_STR);
+    $roomSql->execute();
 
 
     // Run through results of query
-    $uniqueRooms = array();
-    while($rom = $sql->fetch())
+    while($rom = $roomSql->fetch())
     {
-        // Check if room hasn't been displayed yet
-        $roomId = $rom->RomId;
-        $exists = false;
-        foreach($uniqueRooms as $val) // Loop through rooms
-        {
-            if ($roomId === $val) // If current roomId is the same as the iterated roomId
-            {
-                //
-                $exists = true;
-                break;
-            }
-        }
-        if ($exists) // Skip this iteration (aka skip this room)
-        {
-            continue;
-        }
-        $uniqueRooms[] = $roomId; // Add roomId to displayed rooms
-
         // Display room
+        $roomId = $rom->RomId;
         echo "<div class='roomBlock'>";
         $prosjektor = "JA";
         if ($rom->Prosjektor === "n")
@@ -137,37 +89,99 @@ LEFT JOIN Bruker AS b ON l.BrukerId = b.BrukerId WHERE r.Storrelse IN (:size1, :
         echo "<h3>" . $rom->Beskrivelse . "</h3>";
         echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
 
+        // Query to get all rents of the set date
+        $rentSql = $db->prepare("SELECT * FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date;");
+        $rentSql->setFetchMode(PDO::FETCH_OBJ);
+        $rentSql->bindParam(':roomId', $roomId, PDO::PARAM_STR);
+        $rentSql->bindParam(':date', $queryDate, PDO::PARAM_STR);
+        $rentSql->execute();
 
-        // Hours overview
-        for ($i = 8; $i <= 20; $i ++)
+        $rented = array_fill(0, 12, false);
+        while($rent = $rentSql->fetch())
         {
-            $startTime = $rom->Tidspunkt;
-            $hour = $i * 3600;
-            $hours = $rom->AntallTimer;
-
-            $start = strtotime($rom->Tidspunkt);
-            $end = $start + (3600 * $hours);
-            $cur = strtotime(date('H:i:s', $hour));
-
-            // Set background color
-            $bgColor = '#0fa';
-            if ($cur > $start + 1 && $cur < $end + 1)
+            $hasDone = false;
+            for ($i = 8; $i <= 20; $i ++)
             {
-                $bgColor = '#f55';
+                $startTime = $rent->Tidspunkt;
+                $hour = $i * 3600;
+                $hours = $rent->AntallTimer;
+
+                $start = strtotime($rent->Tidspunkt);
+                $end = $start + (3600 * $hours);
+                $cur = strtotime(date('H:i:s', $hour));
+
+                if ($cur > $start + 1 && $cur < $end + 1)
+                {
+                    $rented[$i - 8] = true;
+                }
+            }
+        }
+
+        // Display hours (un)available
+        $i = 0;
+        foreach($rented as $isRented)
+        {
+            $bgColor = "0fa";
+            $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
+            if ($isRented)
+            {
+                $bgColor = "f55";
+                $rentedVal = 1;
             }
 
-            // Display element
-            echo "<a href='#' class='timeBlock' style='background-color: " . $bgColor . ";'>" . str_pad($i, 2, '0', STR_PAD_LEFT) . ':00' . "</a>";
+            // TODO Replace this with a PHP implementation for iteration 2
+            // This won't work (to my limited knowledge)/be difficult to get to communicate correctly with a database...
+            $mouseClickEvent = "onclick='clickedTimeElement(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");' ";
+            $mouseOverEvent = "onmouseover='addHoverToSelection(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");'";
+            echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";
+            $i ++;
         }
+
+        ?>
+
+        <form method="post" action="bekreftelse.php">
+            <input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput">
+            <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput">
+            <input type="submit" value="Book rom" name="booking">
+        </form>
+
+        <?php
+        //$startTime = "";
+        //$hourCount = 0;
+        /*if (isset($_POST['booking']))
+        {
+
+            if (isset($_POST["timeinput"]))
+            {
+                //$startTime = $_POST['timeinput'];
+                $_SESSION['book_time'] = $_POST['timeinput'];
+            }
+            if (isset($_POST["hourinput"]))
+            {
+                //$hourCount = $_POST['hourinput'];
+                $_SESSION['book_hours'] = $_POST['hourinput'];
+            }
+            /*$insertSql = $db->prepare("INSERT INTO LeieAvRom VALUES (1, 1, '2015-03-12', :time, :hourcount);");
+            $insertSql->bindParam(':time', $startTime, PDO::PARAM_STR);
+            $insertSql->bindParam(':hourcount', $hourCount, PDO::PARAM_STR);
+            $insertSql->execute();*/
+        //}
+
+        /*// Display rent buttons
+        //echo "<div class='button' onclick='rentRoom(" . $roomId . ");'>Rent room</div>";
+        $clickevent = "onclick='rentRoom(" . $rom->RomId . ");'";
+        echo "<div class='button' " . $clickevent . ">Rent</div>";*/
+
         echo "</div>";
     }
 
     // Check if any rows were returned
-    if ($sql->rowCount() <= 0)
+    if ($roomSql->rowCount() <= 0)
     {
-        echo "<br /><br />No results...";
+        echo "<br /><br />No search results...";
     }
     ?>
 
+<script src="main.js"></script>
 </body>
 </html>
