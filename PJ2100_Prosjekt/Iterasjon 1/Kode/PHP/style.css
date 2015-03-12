@@ -1,5 +1,3 @@
-/*Stor ramme*/
-
 .roomBlock
 {
     border: 1px solid #000;
@@ -7,8 +5,6 @@
     margin-bottom: 6px;
     padding: 6px;
 }
-
-/*tilgjengelig/ikketilgjengelig tidspunkter*/
 .timeBlock
 {
     border: 1px solid transparent;
@@ -19,12 +15,10 @@
     width: 54px;
     text-align: center;
 }
-/*ramme til hover*/
 .timeBlock:hover
 {
     border: 1px solid #000;
 }
-/*antall og prosjektor info*/
 .infoBlock
 {
     border: 1px solid #000;

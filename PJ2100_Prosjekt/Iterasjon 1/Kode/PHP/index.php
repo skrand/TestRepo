@@ -80,6 +80,7 @@ require 'config.php';
     {
         // Display room
         $roomId = $rom->RomId;
+
         echo "<div class='roomBlock'>";
         $prosjektor = "JA";
         if ($rom->Prosjektor === "n")
@@ -142,32 +143,41 @@ require 'config.php';
         <form method="post" action="bekreftelse.php">
             <input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput">
             <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput">
+            <?php
+                echo "<input type='text' value='" . $roomId . "' name ='idinput'>" // Hack to send roomId with the form to POST
+            ?>
             <input type="submit" value="Book rom" name="booking">
         </form>
 
         <?php
-        //$startTime = "";
-        //$hourCount = 0;
-        /*if (isset($_POST['booking']))
+        /*$startTime = "";
+        $hourCount = 0;
+        if (isset($_POST['booking']))
         {
 
             if (isset($_POST["timeinput"]))
             {
-                //$startTime = $_POST['timeinput'];
-                $_SESSION['book_time'] = $_POST['timeinput'];
+                $startTime = $_POST['timeinput'];
+                //$_SESSION['book_time'] = $_POST['timeinput'];
             }
             if (isset($_POST["hourinput"]))
             {
-                //$hourCount = $_POST['hourinput'];
-                $_SESSION['book_hours'] = $_POST['hourinput'];
+                $hourCount = $_POST['hourinput'];
+                //$_SESSION['book_hours'] = $_POST['hourinput'];
             }
-            /*$insertSql = $db->prepare("INSERT INTO LeieAvRom VALUES (1, 1, '2015-03-12', :time, :hourcount);");
+            $insertSql = $db->prepare("INSERT INTO LeieAvRom VALUES (:roomId, 1, '2015-03-12', :time, :hourcount);");
+            $insertSql->bindParam(':roomId', $roomId, PDO::PARAM_INT);
             $insertSql->bindParam(':time', $startTime, PDO::PARAM_STR);
             $insertSql->bindParam(':hourcount', $hourCount, PDO::PARAM_STR);
-            $insertSql->execute();*/
-        //}
+            $insertSql->execute();
 
-        /*// Display rent buttons
+            // Refresh page
+            echo "RoomID: " . $roomId;
+            header("Location: index.php");
+            die();
+        }*/
+
+        /* // Display rent buttons
         //echo "<div class='button' onclick='rentRoom(" . $roomId . ");'>Rent room</div>";
         $clickevent = "onclick='rentRoom(" . $rom->RomId . ");'";
         echo "<div class='button' " . $clickevent . ">Rent</div>";*/

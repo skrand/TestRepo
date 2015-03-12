@@ -1,4 +1,5 @@
 <?php
+
 include_once('libs/DB.php');
 
 $db = new DB();
