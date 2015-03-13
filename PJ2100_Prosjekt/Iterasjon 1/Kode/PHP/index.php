@@ -24,7 +24,6 @@ require 'config.php';
     <input type="submit" value="->" name="nextDay">
 </form>-->
 
-
     <?php
     // Get all filter variables
     $querySizes = array(2, 3, 4);
@@ -129,17 +128,12 @@ require 'config.php';
             echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";
             $i ++;
         }
-        $_SESSION['romid'] = $roomId;
         ?>
-
         <form method="get" action="bekreftelse.php">
-            <input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput">
-            <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput">
-            <?php
-                //$_SESSION['idnum'] = $roomId;
-                echo "<input type='text' value='" . $roomId . "' name ='romid'>" // Hack to send roomId with the form to POST
-            ?>
-            <input type="submit" value="Book rom" name="booking">
+            <br />
+            <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
+            <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
+            <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
         </form>
 
         <?php
