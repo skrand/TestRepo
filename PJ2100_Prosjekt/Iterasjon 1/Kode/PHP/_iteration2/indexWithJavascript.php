@@ -1,5 +1,7 @@
 <?php
 require 'config.php';
+//include_once('libs/DB.php');
+//$db = new DB();
 ?>
 
 <html>
@@ -7,7 +9,6 @@ require 'config.php';
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<a href="../html/index.html">Tilbake til forsiden</a>
 <h1>Book et rom</h1>
 <h2>Filter</h2>
 <form method="post">
@@ -18,7 +19,7 @@ require 'config.php';
     <input type="submit" value="Filtrer" name="filter">
 </form>
 
-<!--<h2>Datepicker</h2>
+<!--<h2>Dato</h2>
 <form method="get">
     <input type="submit" value="<-" name="prevDay">
     <input type="submit" value="->" name="nextDay">
@@ -31,7 +32,7 @@ require 'config.php';
 
     $queryProjector = "%";
 
-    $queryDate = date("Y-m-d"); // TODO Replace with date from datepicker
+    $queryDate = date("Y-m-d");//"2015-03-12"; // TODO Replace with current date (from datepicker)
 
     if (isset($_POST['filter']))
     {
@@ -55,7 +56,15 @@ require 'config.php';
     }
 
     //remove sql leieavrom on expire
-
+    // Query
+    /*
+     * Få Rom oversikt og LeieAvRom oversikt (for nåværende dato) i to forskjellige spørringer
+     * Så bruk rom oversikten til å vise rom, og LeieAvRom til å vise ledighet
+     * foreach (room)
+     *      display room info
+     *      foreach (rent of this room) [query to get the rents uses the date]
+     *          display red or green element
+     * */
     // Query to get all rooms
     $roomSql = $db->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
     $roomSql->setFetchMode(PDO::FETCH_OBJ);
@@ -82,17 +91,16 @@ require 'config.php';
         echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
 
         // Query to get all rents of the set date
-        $sql = $db->prepare("SELECT * FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date;");
-        $sql->setFetchMode(PDO::FETCH_OBJ);
-        $sql->execute(array(
-            'roomId' => $roomId,
-            'date' => $queryDate
-        ));
+        $rentSql = $db->prepare("SELECT * FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date;");
+        $rentSql->setFetchMode(PDO::FETCH_OBJ);
+        $rentSql->bindParam(':roomId', $roomId, PDO::PARAM_STR);
+        $rentSql->bindParam(':date', $queryDate, PDO::PARAM_STR);
+        $rentSql->execute();
 
-        // Populate array with boolean for whether the room is occupied for each hour
-        $rented = array_fill(0, 13, false);
-        while($rent = $sql->fetch())
+        $rented = array_fill(0, 12, false);
+        while($rent = $rentSql->fetch())
         {
+            $hasDone = false;
             for ($i = 8; $i <= 20; $i ++)
             {
                 $startTime = $rent->Tidspunkt;
@@ -103,7 +111,7 @@ require 'config.php';
                 $end = $start + (3600 * $hours);
                 $cur = strtotime(date('H:i:s', $hour));
 
-                if ($cur > $start - 1 && $cur < $end - 1)
+                if ($cur > $start + 1 && $cur < $end + 1)
                 {
                     $rented[$i - 8] = true;
                 }
@@ -129,20 +137,25 @@ require 'config.php';
             echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";
             $i ++;
         }
-        $_SESSION['romid'] = $roomId;
+
         ?>
 
-        <form method="get" action="bekreftelse.php">
+        <form method="post" action="bekreftelse.php">
             <input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput">
             <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput">
             <?php
-                //$_SESSION['idnum'] = $roomId;
-                echo "<input type='text' value='" . $roomId . "' name ='romid'>" // Hack to send roomId with the form to POST
+                echo "<input type='text' value='" . $roomId . "' name ='idinput'>" // Hack to send roomId with the form to POST
             ?>
             <input type="submit" value="Book rom" name="booking">
         </form>
 
         <?php
+
+        /* // Display rent buttons
+        //echo "<div class='button' onclick='rentRoom(" . $roomId . ");'>Rent room</div>";
+        $clickevent = "onclick='rentRoom(" . $rom->RomId . ");'";
+        echo "<div class='button' " . $clickevent . ">Rent</div>";*/
+
         echo "</div>";
     }
 

@@ -1,3 +1,4 @@
+/*
 var firstSelected = 100;
 var selectedBgColor = '#999';
 var unselectedBgColor = '#0fa';
@@ -74,3 +75,4 @@ function rentRoom(id)
     }
 
 }
+*/
