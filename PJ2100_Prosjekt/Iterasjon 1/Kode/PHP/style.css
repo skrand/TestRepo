@@ -42,3 +42,8 @@
 {
     cursor:pointer;
 }
+.deactivated
+{
+    cursor: default;
+    pointer-events: none;
+}

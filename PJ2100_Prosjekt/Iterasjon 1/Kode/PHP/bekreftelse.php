@@ -17,7 +17,7 @@ if (isset($_GET["hourinput"]))
 
 // Bruk arrayen med Rom til å loope gjennom for å finne ut hvilken knapp som ble trykket på
 // (knappene får tilsvarende RomId lagt til på slutten av 'name' i oversikten)
-// TODO Find better coluton
+// TODO Find better solution
 $sql = $db->prepare("SELECT * FROM Rom;");
 $sql->setFetchMode(PDO::FETCH_OBJ);
 $sql->execute();

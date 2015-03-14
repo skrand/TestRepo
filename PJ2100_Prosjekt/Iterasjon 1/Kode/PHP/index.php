@@ -1,5 +1,9 @@
 <?php
 require 'config.php';
+/* ITERASJON 2
+ * - Dato velger
+ * - Begrense bestilling til ledige timer
+ * */
 ?>
 
 <html>
@@ -18,19 +22,48 @@ require 'config.php';
     <input type="submit" value="Filtrer" name="filter">
 </form>
 
-<!--<h2>Datepicker</h2>
-<form method="get">
-    <input type="submit" value="<-" name="prevDay">
-    <input type="submit" value="->" name="nextDay">
-</form>-->
+<?php
+// Set datoen
+$queryDate = date('Y-m-d');
+$dateButtonTag = "";
+if (isset($_GET['dato']))
+{
+    $queryDate = $_GET['dato'];
+
+    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
+    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+    {
+        $queryDate = date('Y-m-d');
+        $dateButtonTag = "deactivated";
+    }
+}
+$prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
+$nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
+?>
+
+<h2>Velg dato</h2>
+<a href="?dato=<?=$prevDate;?>" class="<?php echo $dateButtonTag ?>">Forrige</a>
+<b>[<?php echo $queryDate; ?>]</b>
+<a href="?dato=<?=$nextDate;?>">Neste</a>
 
     <?php
+
     // Get all filter variables
     $querySizes = array(2, 3, 4);
 
     $queryProjector = "%";
 
-    $queryDate = date("Y-m-d"); // TODO Replace with date from datepicker
+    if (isset($_POST['prevDay'])) // Previous day
+    {
+        $date = date('Y-m-d', strtotime(' +1 day'));
+        echo "prev day shit";
+    }
+    if (isset($_POST['nextDay'])) // Previous day
+    {
+        $date = date('Y-m-d', strtotime(' +1 day'));
+        echo "next day shit";
+    }
+
 
     if (isset($_POST['filter']))
     {
@@ -52,8 +85,6 @@ require 'config.php';
         }
 
     }
-
-    //remove sql leieavrom on expire
 
     // Query to get all rooms
     $roomSql = $db->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
