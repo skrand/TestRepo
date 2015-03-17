@@ -17,7 +17,7 @@ if (usernameIsUnique($username, $db) === false)
 
 $passhash = password_hash($password, PASSWORD_DEFAULT);
 // Check if username is unique
-$sql = $db->prepare("INSERT INTO Bruker VALUES ('NULL', :user, :pass);");
+$sql = $db->prepare("INSERT INTO Bruker VALUES ('NULL', :user, :pass, '');"); // TODO Remove the email column
 $sql->execute(array(
     'user' => $username,
     'pass' => $passhash
