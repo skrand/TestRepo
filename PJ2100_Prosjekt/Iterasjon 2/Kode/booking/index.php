@@ -161,7 +161,7 @@ require 'verifysession.php';
             $i ++;
         }
         ?>
-        <form method="get" action="bekreftelse.php?date=<?php echo $queryDate ?>">
+        <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
             <br />
             <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
             <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
