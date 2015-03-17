@@ -1,4 +1,3 @@
-<?php require 'booking/config.php'; ?>
 <!DOCTYPE html>
 <html>
 
@@ -13,52 +12,35 @@
 	<div id="mainDiv">
 		<!-- logoen-->
 		<div id="logoDiv">
-			<a href="index.html"><img src="../images/logo.jpg"/></a>
+			<a href="index.html"><img src="../images/logo3.png"/></a>
 		</div>
 		<!-- menyen -->
 		<div id="menyDiv">
-			<a href="https://nith.itslearning.com/Index.aspx">Intranett</a>
-			<a href="studier.html">Studier</a> 
-			<a href="info.html">Informasjon</a>
-			<a href="kontakt.html">Kontakt</a> 
-			<a href="flytter.html">2016</a>
+			<ul>
+				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
+				<li><a href="studier.html">Studier</a> </li>
+				<li><a href="info.html">Informasjon</a><li>
+				<li><a href="kontakt.html">Kontakt</a> </li>
+				<li><a href="flytter.html">2016</a></li>
+			</ul>
 		</div>
 		<!-- infodiv som skal ha informasjon på hver side -->
 		<div id="centerDiv">
 			<article id="leftArticle">
 				<img src="../images/west2.jpg">
-			<!--</article>
-			<article id="middleArticle">
-				<h1>Overskrift</h1>
-				<p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p>
 			</article>
-			<article id="rightArticle">
-				<h1>Overskrift</h1>
-				<p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p><p>huehuehuehuehuehuehuehuehuehuehuehuehue</p>
-			</article>-->
+			
 		</div>
 		<!--venstre side - login-->
 		<aside id="leftAside">
 			<p><b>Logg inn for å <br>reservere rom</b></p>
-            <?php
-            if (isset($_GET['registersuccess']))
-            {
-                echo "<br /><b>Ny bruker registrert! Logg inn:</b><br />";
-            }
-            ?>
-			<form action="booking/login.php" method="post">
+			<form action="../PHP/index.php" method="post">
 				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
-				<input type="password" placeholder="Passord" name="password" required="required"><br>
+				<input type="password" placeholder="Passord" name="password"required="required"><br>
 				<br>
 				<input type="submit" value="Logg inn">
 			</form>
-            <?php
-            if (isset($_GET['badlogin']))
-            {
-                echo "<p>Incorrect login info.</p>";
-            }
-            ?>
-            <a href="booking/register.php">Registrer ny bruker</a>
+
 		</aside>
 		<!-- venstre side CK32 reklamen -->
 		<aside id="leftAside2">
