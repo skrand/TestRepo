@@ -40,6 +40,12 @@
 		<!--venstre side - login-->
 		<aside id="leftAside">
 			<p><b>Logg inn for å <br>reservere rom</b></p>
+            <?php
+            if (isset($_GET['registersuccess']))
+            {
+                echo "<br /><b>Ny bruker registrert! Logg inn:</b><br />";
+            }
+            ?>
 			<form action="booking/login.php" method="post">
 				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
 				<input type="password" placeholder="Passord" name="password" required="required"><br>
@@ -47,9 +53,9 @@
 				<input type="submit" value="Logg inn">
 			</form>
             <?php
-            if (isset($_SESSION['badlogin']) && !isValidSession())
+            if (isset($_GET['badlogin']))
             {
-                echo "<br /><b>Bad login</b><br />";
+                echo "<p>Incorrect login info.</p>";
             }
             ?>
             <a href="booking/register.php">Registrer ny bruker</a>

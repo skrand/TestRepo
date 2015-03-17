@@ -19,19 +19,20 @@ $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
 function redirectToMain($showBadLogin)
 {
+    // TODO Fix this shit
     echo "Redirect: ";
     if ($showBadLogin === true)
     {
         echo "Badlogin";
         //die();
         $_SESSION['badlogin'] = "badlogin";
-        header("Location: ../");
+        header("Location: ../index.php?badlogin");
         die();
     }
     echo "Goodlogin";
     //die();
     $_SESSION['badlogin'] = "";
-    unset ($_SESSION['badlogin']);
+    unset ($_GET['badlogin']);
 
     header("Location: /");
     die();

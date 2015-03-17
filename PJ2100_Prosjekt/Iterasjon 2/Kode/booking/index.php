@@ -15,7 +15,7 @@ require 'verifysession.php';
 <a href="../index.php">Tilbake til forsiden</a>
 <a href="logout.php">Logg ut</a>
 <h1>Book et rom</h1>
-<h2>Filter</h2>
+<h3>Filter</h3>
 <form method="post">
     <label><input type="checkbox" name="size1" value="2" checked>2 personer</label>
     <label><input type="checkbox" name="size2" value="3" checked>3 personer</label>
@@ -25,25 +25,25 @@ require 'verifysession.php';
 </form>
 
 <?php
-// Set datoen
-$queryDate = date('Y-m-d');
-$dateButtonTag = "";
-if (isset($_GET['dato']))
-{
-    $queryDate = $_GET['dato'];
-
-    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
-    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+    // Set datoen
+    $queryDate = date('Y-m-d');
+    $dateButtonTag = "";
+    if (isset($_GET['dato']))
     {
-        $queryDate = date('Y-m-d');
-        $dateButtonTag = "deactivated";
+        $queryDate = $_GET['dato'];
+
+        // Begrens slik at man ikke kan gå lengre tilbake en dags dato
+        if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+        {
+            $queryDate = date('Y-m-d');
+            $dateButtonTag = "deactivated";
+        }
     }
-}
-$prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
-$nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
+    $prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
+    $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
 ?>
 
-<h2>Velg dato</h2>
+<h3>Velg dato</h3>
 <a href="?dato=<?=$prevDate;?>" class="<?php echo $dateButtonTag ?>">Forrige</a>
 <b>[<?php echo $queryDate; ?>]</b>
 <a href="?dato=<?=$nextDate;?>">Neste</a>
