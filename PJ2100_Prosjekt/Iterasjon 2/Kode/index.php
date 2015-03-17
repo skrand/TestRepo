@@ -13,16 +13,16 @@
 	<div id="mainDiv">
 		<!-- logoen-->
 		<div id="logoDiv">
-			<a href="index.html"><img src="../images/logo3.png"/></a>
+			<a href="index.php"><img src="/images/logo3.png"/></a>
 		</div>
 		<!-- menyen -->
 		<div id="menyDiv">
 			<ul>
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
-				<li><a href="studier.html">Studier</a> </li>
-				<li><a href="info.html">Informasjon</a><li>
-				<li><a href="kontakt.html">Kontakt</a> </li>
-				<li><a href="flytter.html">2016</a></li>
+				li><a href="html/studier.html">Studier</a> </li>
+				<li><a href="html/info.html">Informasjon</a><li>
+				<li><a href="html/kontakt.html">Kontakt</a> </li>
+				<li><a href="html/flytter.html">2016</a></li>
 			</ul>
 		</div>
 		<!-- infodiv som skal ha informasjon på hver side -->
