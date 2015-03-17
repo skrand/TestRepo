@@ -160,11 +160,11 @@ footer p {
 
 /*responsive design */
 
-@media handheld and (max-width: 320px) {
+@media screen and (max-width: 400px) {
 /*phone*/
 
 body {
-	font-size: 14px;
+	font-size: 1em;
 }
 
 
