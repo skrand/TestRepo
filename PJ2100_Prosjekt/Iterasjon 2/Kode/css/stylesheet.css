@@ -47,12 +47,25 @@ a:hover {
 }
 /*logo*/
 #logoDiv {
+<<<<<<< f02d25a7be699aa8aa958c41a611d1e60a789d0a
 	position: relative;
 	left: 0.5%;
 	top: 3%;
+=======
+	position: absolute;
+	left: -5%;
+	top: -5%;
+	height: 30%;
+	width: 30%;
+>>>>>>> 4f54585fdcfe34d49836651933e2762a54ec3893
 	float: left;
 	overflow: hidden;
 }
+#logoDiv img {
+	width: 100%;
+	height: 100%;
+}
+
 /*login*/
 #leftAside {
 	padding: 1%;
@@ -152,3 +165,123 @@ footer p {
 	font-size: 10px;
 }
 
+<<<<<<< f02d25a7be699aa8aa958c41a611d1e60a789d0a
+=======
+
+/*responsive design */
+
+/* HER ER KODE FOR STÅENDE FORMAT MOBIL OPP TIL 400PX*/
+@media screen and (max-width: 400px) {
+/*phone*/
+
+body {
+	font-size: 1.5em;
+}
+
+
+#logoDiv {
+	display: none;
+}
+#menyDiv {
+	display: none;
+}
+
+#leftAside {
+	width:100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+
+#leftAside2 {
+	display:none;
+}
+
+#centerDiv {
+	display: none;
+}
+
+footer {
+	display: none;
+}
+
+
+}
+/* HER ER KODE FOR LIGGENDE FORMAT MOBIL OPP TIL 700PX*/
+@media screen (min-width: 400px) and (max-width: 700px) {
+/*phone liggende*/
+
+body {
+	font-size: 1.5em;
+}
+
+
+#logoDiv {
+	display: none;
+}
+#menyDiv {
+	display: none;
+}
+
+#leftAside {
+	width:100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+
+#leftAside2 {
+	display: none;
+}
+
+#centerDiv {
+	display: none;
+}
+
+footer {
+	display: none;
+}
+
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 1350px) {
+	#menyDiv {
+		left: 53%;
+	}
+	#leftAside2 {
+	padding: 1%;
+	left: 3%;
+	top: 51%;
+	position: absolute;
+	width: 13%;
+	height: 28%;
+	background-color: #face66;
+	overflow: hidden;
+}
+
+	#leftAside2 h1 {
+	font-size: 70px;
+	margin-top: 15px;
+	margin-left: 17px;
+}
+
+	#leftAside2 p {
+	font-size: 10px;
+	color: #FFF;
+	margin-top: -50px;
+}
+
+#logoDiv {
+	position: absolute;
+	left: -5%;
+	top: -5%;
+	height: 27%;
+	width: 30%;
+	float: left;
+	overflow: hidden;
+}
+}
+>>>>>>> 4f54585fdcfe34d49836651933e2762a54ec3893
