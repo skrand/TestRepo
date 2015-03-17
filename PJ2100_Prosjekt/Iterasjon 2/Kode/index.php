@@ -1,11 +1,10 @@
 <?php require 'booking/config.php'; ?>
-<!DOCTYPE html>
 <html>
 
 <head>
 <title>Westerdals Oslo ACT - Forside</title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../css/stylesheet.css">
+<link rel="stylesheet" href="css/stylesheet.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -13,13 +12,13 @@
 	<div id="mainDiv">
 		<!-- logoen-->
 		<div id="logoDiv">
-			<a href="index.php"><img src="/images/logo3.png"/></a>
+			<a href="index.php"><img src="images/logo3.png"/></a>
 		</div>
 		<!-- menyen -->
 		<div id="menyDiv">
 			<ul>
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
-				li><a href="html/studier.html">Studier</a> </li>
+				<li><a href="html/studier.html">Studier</a> </li>
 				<li><a href="html/info.html">Informasjon</a><li>
 				<li><a href="html/kontakt.html">Kontakt</a> </li>
 				<li><a href="html/flytter.html">2016</a></li>
@@ -38,10 +37,10 @@
             <?php
             if (isset($_GET['registersuccess']))
             {
-                echo "<br /><b>Ny bruker registrert! Logg inn:</b><br />";
+                echo "Ny bruker registrert!";
             }
             ?>
-			<form action="/booking/index.php" method="post">
+			<form action="booking/login.php" method="post">
 				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
 				<input type="password" placeholder="Passord" name="password"required="required"><br>
 				<br>
