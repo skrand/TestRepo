@@ -80,8 +80,10 @@ li a:hover {
 }
 
 #leftAside a {
-	color: #000;
+	color: #FFF;
 	text-align: left;
+	text-decoration: none;
+	font-size: 12px;
 }
 /*bottom left*/
 #leftAside2 {

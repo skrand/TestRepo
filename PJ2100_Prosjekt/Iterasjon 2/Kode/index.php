@@ -52,7 +52,7 @@
                 echo "<p>Incorrect login.</p>";
             }
             ?>
-            <a class="register" href="booking/register.php">Registrer ny bruker</a>
+            <a href="booking/register.php">Registrer ny bruker</a>
 
 		</aside>
 		<!-- venstre side CK32 reklamen -->
