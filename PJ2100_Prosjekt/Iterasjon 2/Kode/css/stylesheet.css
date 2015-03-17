@@ -217,7 +217,7 @@ footer {
 
 }
 /* HER ER KODE FOR LIGGENDE FORMAT MOBIL OPP TIL 700PX*/
-@media screen (min-width: 400px) and (max-width: 700px) {
+@media screen and (min-width: 500px) and (max-width: 700px) {
 /*phone liggende*/
 
 body {
