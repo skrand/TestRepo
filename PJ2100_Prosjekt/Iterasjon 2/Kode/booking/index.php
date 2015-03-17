@@ -1,5 +1,6 @@
 <?php
 require 'config.php';
+require 'verifysession.php';
 /* ITERASJON 2
  * - Dato velger
  * - Begrense bestilling til ledige timer
@@ -11,7 +12,8 @@ require 'config.php';
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<a class="forsideLink" href="../html/index.html"><img src="../images/logo3.png"/></a>
+<a href="../index.php">Tilbake til forsiden</a>
+<a href="logout.php">Logg ut</a>
 <h1>Book et rom</h1>
 <h3>Filter</h3>
 <form method="post">
@@ -23,30 +25,29 @@ require 'config.php';
 </form>
 
 <?php
-// Set datoen
-$queryDate = date('Y-m-d');
-$dateButtonTag = "";
-if (isset($_GET['dato']))
-{
-    $queryDate = $_GET['dato'];
-
-    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
-    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+    // Set datoen
+    $queryDate = date('Y-m-d');
+    $dateButtonTag = "";
+    if (isset($_GET['dato']))
     {
-        $queryDate = date('Y-m-d');
-        $dateButtonTag = "deactivated";
+        $queryDate = $_GET['dato'];
+
+        // Begrens slik at man ikke kan gå lengre tilbake en dags dato
+        if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+        {
+            $queryDate = date('Y-m-d');
+            $dateButtonTag = "deactivated";
+        }
     }
-}
-$prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
-$nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
+    $prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
+    $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
 ?>
 
 <h3>Velg dato</h3>
 <a href="?dato=<?=$prevDate;?>" class="<?php echo $dateButtonTag ?>">Forrige</a>
 <b>[<?php echo $queryDate; ?>]</b>
 <a href="?dato=<?=$nextDate;?>">Neste</a>
-<br>
-<br>
+
     <?php
 
     // Get all filter variables
@@ -104,10 +105,10 @@ $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
         $roomId = $rom->RomId;
 
         echo "<div class='roomBlock'>";
-        $prosjektor = "Ja";
+        $prosjektor = "JA";
         if ($rom->Prosjektor === "n")
         {
-            $prosjektor = "Nei";
+            $prosjektor = "NEI";
         }
         echo "<h3>" . $rom->Beskrivelse . "</h3>";
         echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
@@ -145,7 +146,7 @@ $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
         $i = 0;
         foreach($rented as $isRented)
         {
-            $bgColor = "FFF";
+            $bgColor = "0fa";
             $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
             if ($isRented)
             {
@@ -161,7 +162,7 @@ $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
             $i ++;
         }
         ?>
-        <form method="get" action="bekreftelse.php">
+        <form method="get" action="bekreftelse.php?date=<?php echo $queryDate ?>">
             <br />
             <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
             <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>

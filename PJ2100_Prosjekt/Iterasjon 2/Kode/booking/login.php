@@ -2,8 +2,8 @@
 require 'config.php';
 
 // Check if username and password is set
-if (!isset($_POST['username'])) redirectToMain(true);
-if (!isset($_POST['password'])) redirectToMain(true);
+if (!isset($_POST['password'])) redirect();
+if (!isset($_POST['username'])) redirect();
 
 // Verify the logininfo
 $username = $_POST['username'];
@@ -18,3 +18,9 @@ $_SESSION['user'] = $username;
 header("Location: index.php");
 die();
 
+function redirect()
+{
+    $_SESSION['badlogin'] = "badlogin";
+    header("Location: ../index.php?badlogin");
+    die();
+}

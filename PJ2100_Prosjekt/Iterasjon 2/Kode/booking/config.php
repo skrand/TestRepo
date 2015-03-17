@@ -2,7 +2,7 @@
 session_start();
 
 // Set opp forbindelse med databasen
-/*
+//*
 $db_host = "127.0.0.1";
 $db_name = "GruppeRomBooking";
 $db_user = "root";
@@ -17,7 +17,7 @@ $db_pass = "3wzQyGsm";
 
 $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
-function redirectToMain($showBadLogin)
+/*function redirectToMain($showBadLogin)
 {
     // TODO Fix this shit
     //echo "Redirect: ";
@@ -36,7 +36,7 @@ function redirectToMain($showBadLogin)
 
     header("Location: /");
     die();
-}
+}*/
 
 function verifyLogin($username, $password, $db)
 {
@@ -50,7 +50,9 @@ function verifyLogin($username, $password, $db)
     $result = $sql->fetch(PDO::FETCH_ASSOC);
     if (!password_verify($password, $result['Passord']))
     {
-        redirectToMain(true);
+        $_SESSION['badlogin'] = "badlogin";
+        header("Location: ../index.php?badlogin");
+        die();
     }
 }
 

@@ -1,6 +1,7 @@
 <?php
 require 'config.php';
-
+//echo "bekreftelse stoop";
+//die();
 // Set variables
 $startTime = "12:00";
 $hourCount = 1;

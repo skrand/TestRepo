@@ -3,5 +3,7 @@
 
 if (!isValidSession())
 {
-    redirectToMain(true);
+    $_SESSION['badlogin'] = "badlogin";
+    header("Location: ../index.php?badlogin");
+    die();
 }
