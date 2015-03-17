@@ -1,6 +1,5 @@
 <?php
 require 'config.php';
-require 'verifysession.php';
 /* ITERASJON 2
  * - Dato velger
  * - Begrense bestilling til ledige timer
@@ -12,8 +11,7 @@ require 'verifysession.php';
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<a href="../index.php">Tilbake til forsiden</a>
-<a href="logout.php">Logg ut</a>
+<a class="forsideLink" href="../html/index.html"><img src="../images/logo3.png"/></a>
 <h1>Book et rom</h1>
 <h3>Filter</h3>
 <form method="post">
@@ -25,29 +23,30 @@ require 'verifysession.php';
 </form>
 
 <?php
-    // Set datoen
-    $queryDate = date('Y-m-d');
-    $dateButtonTag = "";
-    if (isset($_GET['dato']))
-    {
-        $queryDate = $_GET['dato'];
+// Set datoen
+$queryDate = date('Y-m-d');
+$dateButtonTag = "";
+if (isset($_GET['dato']))
+{
+    $queryDate = $_GET['dato'];
 
-        // Begrens slik at man ikke kan gå lengre tilbake en dags dato
-        if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
-        {
-            $queryDate = date('Y-m-d');
-            $dateButtonTag = "deactivated";
-        }
+    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
+    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+    {
+        $queryDate = date('Y-m-d');
+        $dateButtonTag = "deactivated";
     }
-    $prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
-    $nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
+}
+$prevDate = date('Y-m-d', strtotime($queryDate .' -1 day'));
+$nextDate = date('Y-m-d', strtotime($queryDate .' +1 day'));
 ?>
 
 <h3>Velg dato</h3>
 <a href="?dato=<?=$prevDate;?>" class="<?php echo $dateButtonTag ?>">Forrige</a>
 <b>[<?php echo $queryDate; ?>]</b>
 <a href="?dato=<?=$nextDate;?>">Neste</a>
-
+<br>
+<br>
     <?php
 
     // Get all filter variables
@@ -105,10 +104,10 @@ require 'verifysession.php';
         $roomId = $rom->RomId;
 
         echo "<div class='roomBlock'>";
-        $prosjektor = "JA";
+        $prosjektor = "Ja";
         if ($rom->Prosjektor === "n")
         {
-            $prosjektor = "NEI";
+            $prosjektor = "Nei";
         }
         echo "<h3>" . $rom->Beskrivelse . "</h3>";
         echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
@@ -146,7 +145,7 @@ require 'verifysession.php';
         $i = 0;
         foreach($rented as $isRented)
         {
-            $bgColor = "0fa";
+            $bgColor = "FFF";
             $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
             if ($isRented)
             {
