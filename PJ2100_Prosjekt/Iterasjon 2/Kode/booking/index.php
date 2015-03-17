@@ -12,7 +12,7 @@ require 'verifysession.php';
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<a href="../index.php">Tilbake til forsiden</a>
+<a href="../index.php"><img src="../images/logo3.png" class="forsideLink"/></a>
 <a href="logout.php">Logg ut</a>
 <h1>Book et rom</h1>
 <h3>Filter</h3>
@@ -47,7 +47,7 @@ require 'verifysession.php';
 <a href="?dato=<?=$prevDate;?>" class="<?php echo $dateButtonTag ?>">Forrige</a>
 <b>[<?php echo $queryDate; ?>]</b>
 <a href="?dato=<?=$nextDate;?>">Neste</a>
-
+<br><br>
     <?php
 
     // Get all filter variables
@@ -105,10 +105,10 @@ require 'verifysession.php';
         $roomId = $rom->RomId;
 
         echo "<div class='roomBlock'>";
-        $prosjektor = "JA";
+        $prosjektor = "Ja";
         if ($rom->Prosjektor === "n")
         {
-            $prosjektor = "NEI";
+            $prosjektor = "Nei";
         }
         echo "<h3>" . $rom->Beskrivelse . "</h3>";
         echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
@@ -146,7 +146,7 @@ require 'verifysession.php';
         $i = 0;
         foreach($rented as $isRented)
         {
-            $bgColor = "0fa";
+            $bgColor = "FFF";
             $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
             if ($isRented)
             {
