@@ -13,7 +13,6 @@ require 'verifysession.php';
 </head>
 <body>
 <a href="../index.php"><img src="../images/logo3.png" class="forsideLink"/></a>
-<a href="logout.php">Logg ut</a>
 <h1>Book et rom</h1>
 <h3>Filter</h3>
 <form method="post">
