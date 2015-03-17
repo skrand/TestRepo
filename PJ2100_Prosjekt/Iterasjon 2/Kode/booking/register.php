@@ -2,6 +2,12 @@
 require 'config.php';
 ?>
 
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <h1>Registrer ny bruker</h1>
 <form action="registeruser.php" method="post">
     <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
@@ -14,3 +20,6 @@ require 'config.php';
     <input type="submit" value="Registrer">
 </form>
 <a href="../index.php">Tilbake til forsiden</a>
+
+</body>
+</html>
