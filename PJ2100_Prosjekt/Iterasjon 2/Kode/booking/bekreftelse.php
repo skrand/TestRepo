@@ -21,26 +21,25 @@ if (isset($_GET["hourinput"]))
 $sql = $db->prepare("SELECT * FROM Rom;");
 $sql->setFetchMode(PDO::FETCH_OBJ);
 $sql->execute();
-$id = 0;
-$tempRomId = 0;
+$roomid = 0;
 while($rom = $sql->fetch())
 {
     // Hvis knappen er satt med en av IDene, stopp å loope
-    if (isset($_GET['booking' . $id]))
-    {
-        break;
-    }
-    $id ++;
+    if (isset($_GET['booking' . $roomid])) break;
+    $roomid ++;
 }
 
 // Query
-$sql = $db->prepare("INSERT INTO LeieAvRom VALUES (:id, 1, :date, :time, :hour);");
+$userid = getUserIdFromName($_SESSION['user'], $db);
+$sql = $db->prepare("INSERT INTO LeieAvRom VALUES (:roomid, :userid, :date, :time, :hour);");
 $sql->execute(array(
-    'id' => $id,
+    'roomid' => $roomid,
+    'userid' => $userid,
     'date' => $date,
     'time' => $_GET['timeinput'],
     'hour' => $_GET['hourinput']
 ));
+
 
 // Go back to index
 header("Location: index.php");

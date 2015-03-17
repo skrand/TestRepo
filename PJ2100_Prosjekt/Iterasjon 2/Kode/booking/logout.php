@@ -6,4 +6,5 @@ $_SESSION['user'] = "";
 unset($_SESSION['user']);
 
 // Go back to the main page
-redirectToMain(false);
+header("Location: ../");
+die();

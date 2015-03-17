@@ -15,6 +15,6 @@ verifyLogin($username, $password, $db);
 $_SESSION['user'] = $username;
 
 // Redirect to booking
-header("Location: ./");
+header("Location: index.php");
 die();
 

@@ -10,4 +10,9 @@ require 'config.php';
     <input type="submit" value="Registrer">
 </form>
 
+<?php
+if (isset($_GET['usernametaken']))
+    echo "Username is taken";
+?>
+
 

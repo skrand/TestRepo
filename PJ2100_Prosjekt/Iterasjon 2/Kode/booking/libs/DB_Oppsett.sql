@@ -20,7 +20,6 @@ CREATE TABLE Bruker
 	BrukerId int NOT NULL AUTO_INCREMENT,
     Brukernavn varchar(255),
     Passord varchar(255),
-    Epost varchar(255),
     CONSTRAINT pk_BrukerId PRIMARY KEY (BrukerId)
 );
 
@@ -47,9 +46,5 @@ VALUES ('Rom 81', '3', 'j'),
 ('Rom 32', '2', 'j'),
 ('Rom 33', '4', 'n');
 
-INSERT INTO Bruker (Brukernavn, Passord, Epost)
-VALUES ('Per', '123', 'per@westerdals.no'),
-('Pål', '117', 'pal@westerdals.no'),
-('Ola', 'abc', 'ola@westerdals.no'),
-('Kari', 'passord', 'kari@westerdals.no'),
-('Anna', 'uahsfwef23', 'anna@westerdals.no');
+INSERT INTO Bruker (Brukernavn, Passord)
+VALUES ('admin', '$2y$10$k4fENyEARYL4qB.EvuK32eFXCKjxRNAAFsX1wgDXsXaxrPZA2oK82');

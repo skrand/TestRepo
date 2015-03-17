@@ -20,7 +20,7 @@ $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 function redirectToMain($showBadLogin)
 {
     echo "Redirect: ";
-    if ($showBadLogin)
+    if ($showBadLogin === true)
     {
         echo "Badlogin";
         //die();
@@ -29,12 +29,31 @@ function redirectToMain($showBadLogin)
         die();
     }
     echo "Goodlogin";
-    die();
-    header("Location: ./");
+    //die();
+    $_SESSION['badlogin'] = "";
+    unset ($_SESSION['badlogin']);
+
+    header("Location: /");
     die();
 }
 
 function verifyLogin($username, $password, $db)
+{
+    $sql = $db->prepare("SELECT Passord FROM Bruker WHERE Brukernavn LIKE :username;");
+    $sql->setFetchMode(PDO::FETCH_OBJ);
+    $sql->execute(array(
+        'username' => $username
+    ));
+
+    // Check if the password matches the password in the database
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
+    if (!password_verify($password, $result['Passord']))
+    {
+        redirectToMain(true);
+    }
+}
+
+function getUserIdFromName($username, $db)
 {
     $sql = $db->prepare("SELECT * FROM Bruker WHERE Brukernavn LIKE :username;");
     $sql->setFetchMode(PDO::FETCH_OBJ);
@@ -42,14 +61,9 @@ function verifyLogin($username, $password, $db)
         'username' => $username
     ));
 
-    // Sjekk om passordet matcher brukernavnet
-    // TODO Lagre som hash
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
-    $pass = $result['Passord'];
-    if ($pass !== $password)
-    {
-        redirectToMain(true);
-    }
+    // Check if the password matches the password in the database
+    $userid = (int)$sql->fetch(PDO::FETCH_ASSOC)['BrukerId'];
+    return $userid;
 }
 
 function isValidSession()
@@ -64,5 +78,11 @@ function isValidSession()
 
 function usernameIsUnique($username, $db)
 {
-    return false;
+    $sql = $db->prepare("SELECT COUNT(*) FROM Bruker WHERE Brukernavn LIKE :username;");
+    $sql->setFetchMode(PDO::FETCH_OBJ);
+    $sql->execute(array(
+        'username' => $username
+    ));
+    $count = (int)$sql->fetch(PDO::FETCH_NUM)[0];
+    return $count === 0;
 }
