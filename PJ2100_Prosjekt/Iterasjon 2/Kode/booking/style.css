@@ -40,7 +40,7 @@ h1 {
     padding: 6px;
 }
 
-.roomblock:nth-child(even) {
+.roomblock:nth-child(odd) {
     background-color: #59a2b8;
 }
 .timeBlock
