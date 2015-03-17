@@ -82,4 +82,5 @@ h1 {
 {
     cursor: default;
     pointer-events: none;
+    text-decoration: none;
 }

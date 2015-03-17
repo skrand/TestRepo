@@ -15,28 +15,9 @@ $db_user = "tordtroen_com";
 $db_pass = "3wzQyGsm";
 //*/
 
+// TODO Fix this shit
+// Put in a class DB instead, OOP 4 life
 $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
-
-/*function redirectToMain($showBadLogin)
-{
-    // TODO Fix this shit
-    //echo "Redirect: ";
-    if ($showBadLogin === true)
-    {
-        echo "Badlogin";
-        //die();
-        $_SESSION['badlogin'] = "badlogin";
-        header("Location: ../index.php?badlogin");
-        die();
-    }
-    //echo "Goodlogin";
-    //die();
-    $_SESSION['badlogin'] = "";
-    unset ($_GET['badlogin']);
-
-    header("Location: /");
-    die();
-}*/
 
 function verifyLogin($username, $password, $db)
 {
