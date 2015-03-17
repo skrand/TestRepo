@@ -13,7 +13,7 @@ require 'config.php';
     <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
     <?php
     if (isset($_GET['usernametaken']))
-        echo "Username is taken<br />";
+        echo "<p class=''>Brukernavn er allerede i bruk.</p>";
     ?>
     <input type="password" placeholder="Passord" name="password" required="required"><br>
     <br>
