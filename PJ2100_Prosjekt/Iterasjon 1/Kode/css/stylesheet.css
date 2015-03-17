@@ -66,6 +66,11 @@ li a:hover {
 	font-weight: bold;
 	overflow: hidden;
 }
+
+#leftAside a {
+	color: #000;
+	text-align: left;
+}
 /*bottom left*/
 #leftAside2 {
 	padding: 1%;
@@ -155,7 +160,7 @@ footer p {
 
 /*responsive design */
 
-@media only screen and (max-width: 320px) {
+@media handheld and (max-width: 320px) {
 /*phone*/
 
 body {
