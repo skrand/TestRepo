@@ -41,15 +41,16 @@
                 echo "<br /><b>Ny bruker registrert! Logg inn:</b><br />";
             }
             ?>
-			<form action="../PHP/index.php" method="post">
+			<form action="/booking/index.php" method="post">
 				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
 				<input type="password" placeholder="Passord" name="password"required="required"><br>
 				<br>
 				<input type="submit" value="Logg inn">
 			</form>
+            <?php
             if (isset($_GET['badlogin']))
             {
-            echo "<p>Incorrect login info.</p>";
+                echo "<p>Incorrect login.</p>";
             }
             ?>
             <a href="booking/register.php">Registrer ny bruker</a>
