@@ -2,7 +2,7 @@
 session_start();
 
 // Set opp forbindelse med databasen
-/*
+//*
 $db_host = "127.0.0.1";
 $db_name = "GruppeRomBooking";
 $db_user = "root";
@@ -20,7 +20,7 @@ $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 function redirectToMain($showBadLogin)
 {
     // TODO Fix this shit
-    echo "Redirect: ";
+    //echo "Redirect: ";
     if ($showBadLogin === true)
     {
         echo "Badlogin";
@@ -29,7 +29,7 @@ function redirectToMain($showBadLogin)
         header("Location: ../index.php?badlogin");
         die();
     }
-    echo "Goodlogin";
+    //echo "Goodlogin";
     //die();
     $_SESSION['badlogin'] = "";
     unset ($_GET['badlogin']);
