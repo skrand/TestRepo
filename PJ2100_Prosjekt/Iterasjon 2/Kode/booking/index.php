@@ -207,7 +207,8 @@ require 'verifysession.php';
                     $timeInfo = "Opptatt, leies av '" . getUserFromId($isRented->BrukerId, $db)['Brukernavn'] . "'";
                 }
             }
-            echo "<div class='timeBlock' onclick='clicked(this);' style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
+            $timestamp = str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
+            echo "<div class='timeBlock' onclick='clicked(this);' style='background-color: #" . $bgColor . ";'>" . $timestamp;
 
             ?>
                     <div class='timeChild'>
@@ -215,14 +216,15 @@ require 'verifysession.php';
                         <?php
                         if ($renterIsLoggedIn)
                         {
-                            echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
+                            echo "<a href='avbestill.php?date=" . $queryDate . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
                         }
                         else if (!$isRented)
                         {
                         ?>
-                            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
+                            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00" ?>">
                                 <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
                                 <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
+                                <!-- TODO Sleng på RomIDen på action urlen-->
                             </form>
                             <?php } ?>
                     </div>
@@ -231,15 +233,7 @@ require 'verifysession.php';
                 <?php
             $i ++;
         }
-        ?>
-            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
-                <br />
-                <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
-                <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
-                <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
-            </form>
 
-            <?php
         echo "</div>";
     }
 

@@ -112,6 +112,7 @@ h1 {
 .selected
 {
     width: 200px;
+    cursor: default;
 }
 .timeChild
 {

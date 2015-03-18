@@ -29,6 +29,10 @@ while($rom = $sql->fetch())
     $roomid ++;
 }
 
+$time = $_GET['time'];
+$date = $_GET['date'];
+
+
 // Query
 $userid = getUserIdFromName($_SESSION['user'], $db);
 $sql = $db->prepare("INSERT INTO LeieAvRom VALUES (:roomid, :userid, :date, :time, :hour);");
@@ -36,8 +40,8 @@ $sql->execute(array(
     'roomid' => $roomid,
     'userid' => $userid,
     'date' => $date,
-    'time' => $_POST['timeinput'],
-    'hour' => $_POST['hourinput']
+    'time' => $time,
+    'hour' => $hourCount
 ));
 
 
