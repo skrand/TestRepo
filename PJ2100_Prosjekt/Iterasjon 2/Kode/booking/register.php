@@ -10,6 +10,7 @@ require 'config.php';
 </head>
 <body>
 
+<div id="registerDiv">
 <h1>Registrer ny bruker</h1>
 <form action="registeruser.php" method="post">
     <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
@@ -22,6 +23,6 @@ require 'config.php';
     <input type="submit" value="Registrer">
 </form>
 <a href="../index.php">Tilbake til forsiden</a>
-
+</div>
 </body>
 </html>

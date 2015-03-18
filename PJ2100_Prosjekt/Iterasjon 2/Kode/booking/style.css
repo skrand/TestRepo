@@ -96,3 +96,9 @@ h1 {
     pointer-events: none;
     text-decoration: none;
 }
+
+#registerDiv {
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
