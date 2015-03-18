@@ -19,8 +19,8 @@
 		<div id="menyDiv">
 			<ul>
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
-				<li><a href="html/studier.html">Studier</a> </li>
-				<li><a href="html/info.html">Informasjon</a><li>
+				<li><a href="html/studier.php">Studier</a> </li>
+				<li><a href="html/info.php">Informasjon</a><li>
 			</ul>
 		</div>
 		<!-- infodiv som skal ha informasjon på hver side -->

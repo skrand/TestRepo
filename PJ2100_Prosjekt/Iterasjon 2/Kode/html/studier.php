@@ -15,8 +15,8 @@
 		<div id="menyDiv">
 			<ul>
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
-				<li><a href="studier.html">Studier</a> </li>
-				<li><a href="info.html">Informasjon</a><li>
+				<li><a href="studier.php">Studier</a> </li>
+				<li><a href="info.php">Informasjon</a><li>
 			</ul>
 		</div>
 
