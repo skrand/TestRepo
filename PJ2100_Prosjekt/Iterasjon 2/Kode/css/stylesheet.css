@@ -3,33 +3,8 @@
 body {
 	margin: 0;
 	font-family: verdana;
-	font-size: 14px;
-}
-
-.register {
-	color: #FFFFFF;
-	text-decoration: none;
-}
-
-ul {
-	list-style: none;
-}
-li a {
-	color: #000;
 	font-size: 12px;
-	text-decoration: none;
-	font-weight: bold;
-	display: inline;
-	margin-left: 25px;
-	float: left;
-
-
 }
-
-li a:hover {
-	color: #f06e67;
-}
-
 
 #mainDiv {
 	position: absolute;
@@ -37,19 +12,7 @@ li a:hover {
 	width: 100%;
 	background-color: #FFF;
 	overflow: hidden;
-
-	
 }
-/* meny*/
-#menyDiv {
-	position: absolute;
-	height: 3%;
-	width: 100%;
-	top: 10%;
-	left: 74%;
-	text-align: right;
-}
-
 
 
 /*logo*/
@@ -58,8 +21,6 @@ li a:hover {
 	left: 2.5%;
 	top: 3%;
 	height: 13%;
-	float: left;
-	overflow: hidden;
 }
 #logoDiv img {
 	height: 100%;
@@ -89,6 +50,11 @@ li a:hover {
 #leftAside p {
 	font-size: 12px;
 }
+
+.fill {
+	width: 98%;
+}
+
 /*bottom left*/
 #leftAside2 {
 	padding: 1%;
@@ -167,7 +133,9 @@ footer p {
 /* HER ER KODE FOR STÅENDE FORMAT MOBIL OPP TIL 400PX*/
 @media screen and (max-width: 400px) {
 /*phone*/
-
+.fill {
+	width: 70%;
+}
 body {
 	font-size: 1.5em;
 }
@@ -176,17 +144,12 @@ body {
 #logoDiv {
 	display: none;
 }
-#menyDiv {
-	display: none;
-}
 
 #leftAside {
 	width:100%;
 	height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
 }
+
 
 #leftAside2 {
 	display:none;
@@ -203,8 +166,12 @@ footer {
 
 }
 /* HER ER KODE FOR LIGGENDE FORMAT MOBIL OPP TIL 700PX*/
-@media screen and (min-width: 500px) and (max-width: 700px) {
+@media screen and (max-width: 700px) {
 /*phone liggende*/
+
+.fill {
+	width: 70%;
+}
 
 body {
 	font-size: 1.5em;
@@ -212,9 +179,6 @@ body {
 
 
 #logoDiv {
-	display: none;
-}
-#menyDiv {
 	display: none;
 }
 
@@ -225,6 +189,9 @@ body {
 	top: 0;
 	text-align: center;
 }
+
+
+
 
 #leftAside2 {
 	display: none;
@@ -242,9 +209,9 @@ footer {
 }
 
 @media screen and (min-width: 700px) and (max-width: 1350px) {
-	#menyDiv {
-		left: 66.5%;
-	}
+.fill {
+	width: 90%;
+}
 	#leftAside2 {
 	padding: 1%;
 	left: 3%;

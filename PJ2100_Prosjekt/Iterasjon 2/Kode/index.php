@@ -13,20 +13,12 @@
 	<div id="mainDiv">
 		<!-- logoen-->
 		<div id="logoDiv">
-			<a href="index.php"><img src="images/logo3.png"/></a>
+			<a href="index.php"><img src="images/logo3.png" alt="logo" /></a>
 		</div>
-		<!-- menyen -->
-		<div id="menyDiv">
-			<ul>
-				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
-				<li><a href="html/study.php">Studier</a> </li>
-				<li><a href="html/info.php">Informasjon</a><li>
-			</ul>
-		</div>
-		<!-- infodiv som skal ha informasjon på hver side -->
+		<!--center bilde-->
 		<div id="centerDiv">
 			<article id="leftArticle">
-				<img src="../images/west2.jpg">
+				<img src="../images/west2.jpg" alt="Konseptskisse" />
 			</article>
 			
 		</div>
@@ -40,10 +32,10 @@
             }
             ?>
 			<form action="booking/login.php" method="post">
-				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
-				<input type="password" placeholder="Passord" name="password"required="required"><br>
+				<input class="fill" type="text" placeholder="Brukernavn" name="username" required="required"><br>
+				<input class="fill" type="password" placeholder="Passord" name="password"required="required"><br>
 				<br>
-				<input type="submit" value="Logg inn">
+				<input class="fill" type="submit" value="Logg inn">
 			</form>
             <?php
             if (isset($_GET['badlogin']))
