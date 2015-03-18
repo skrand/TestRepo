@@ -190,7 +190,7 @@ require 'verifysession.php';
             /*$mouseClickEvent = "onclick='clickedTimeElement(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");' ";
             $mouseOverEvent = "onmouseover='addHoverToSelection(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");'";
             echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";*/
-            echo "<div class='timeBlock' onclick='clicked(this);' style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
+
             $renterIsLoggedIn = false;
             $timeInfo = "Ledig!";
             if ($isRented)
@@ -198,17 +198,17 @@ require 'verifysession.php';
 
                 if ($isRented->BrukerId == getUserIdFromName($_SESSION['user'], $db))
                 {
-                    $timeInfo = "Du leier denne!";
+                    $timeInfo = "Du leier her!";
                     $renterIsLoggedIn = true;
+                    $bgColor = "7fc79a";
                 }
                 else
                 {
-
-                    $timeInfo = "Leies av '" . getUserFromId($isRented->BrukerId, $db)['Brukernavn'] . "'";
+                    $timeInfo = "Opptatt, leies av '" . getUserFromId($isRented->BrukerId, $db)['Brukernavn'] . "'";
                 }
-                //$timeInfo = "LEIES AV: " . $isRented . " LOGGET INN: " . $_SESSION['user'] . "[" . getUserIdFromName($_SESSION['user'], $db) . "]";
             }
-            //$timeInfo = $isRented . " - " . getUserIdFromName($_SESSION['user'], $db);
+            echo "<div class='timeBlock' onclick='clicked(this);' style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
+
             ?>
                     <div class='timeChild'>
                         <p><?php echo $timeInfo ?></p>
