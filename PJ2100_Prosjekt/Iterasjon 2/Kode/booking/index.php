@@ -216,7 +216,7 @@ require 'verifysession.php';
                         <?php
                         if ($renterIsLoggedIn)
                         {
-                            echo "<a href='avbestill.php?date=" . $queryDate . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
+                            echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
                         }
                         else if (!$isRented)
                         {
