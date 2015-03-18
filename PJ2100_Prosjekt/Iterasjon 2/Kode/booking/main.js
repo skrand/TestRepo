@@ -1,96 +1,27 @@
-var prevElement = null;
-var selectedClass = " selected";
-var childSelectedClass = " timeChildSelected";
+var prevElement = null; // Previous clicked element
+var selectedClass = " selected"; // Timeblock selected class
+var childSelectedClass = " timeChildSelected"; // Class for the child of the selected element
 
+// Called when clicking a time element
 function clicked(element)
 {
+    // Add classes to the elements
     element.className += selectedClass;
     element.firstElementChild.className += childSelectedClass;
 
+    // If prevElement exists, remove the classes
     if (prevElement)
     {
-        prevElement.className = prevElement.className.replace(selectedClass, '');
-        prevElement.firstElementChild.className = prevElement.firstElementChild.className.replace(childSelectedClass, '');
+        removeSelectedClass(prevElement);
     }
+
+    // Assign the previous clicked element to the newPrevElement
     prevElement = element;
 }
 
-
-/*
-var firstSelected = 100;
-var selectedBgColor = '#999';
-var unselectedBgColor = '#0fa';
-var isSelecting = false;
-var curRoomId = -1;
-var selection = [];
-
-function clickedTimeElement(element, elementId, isRented, roomId)
+// Removes the selected classes from the element and its child
+function removeSelectedClass(element)
 {
-    // Stop if element is rented
-    if (isRented === 1)
-    {
-        return;
-    }
-
-    // Do the selecting/deselecting
-    if (isSelecting) // Is selecting
-    {
-        // End selection
-        firstSelected = 100;
-        isSelecting = false;
-        //curRoomId = -1;
-
-        for (i = 0; i < selection.length; i ++)
-        {
-            //changeBgColor(selection[i], false);
-        }
-        //selection = [];
-    }
-    else // Isn't selecting
-    {
-        // Start selection
-        isSelecting = true;
-        firstSelected = elementId;
-        curRoomId = roomId;
-        changeBgColor(element, true);
-        addElementToSelection(element);
-    }
+    element.className = prevElement.className.replace(selectedClass, '');
+    element.firstElementChild.className = prevElement.firstElementChild.className.replace(childSelectedClass, '');
 }
-
-// Select element (for onhover)
-function addHoverToSelection(element, elementId, isRented, roomId)
-{
-    if (elementId > firstSelected && !isRented && roomId === curRoomId)
-    {
-        addElementToSelection(element);
-        changeBgColor(element, true);
-    }
-}
-
-// Add element to selection
-function addElementToSelection(element)
-{
-    // Add the element to the selection array
-    selection[selection.length] = element;
-}
-
-// Change the element background color
-function changeBgColor(element, toSelected)
-{
-    var bgColor = unselectedBgColor;
-    if (toSelected)
-    {
-        bgColor = selectedBgColor;
-    }
-    element.style.backgroundColor = bgColor;
-}
-
-function rentRoom(id)
-{
-    if (id === curRoomId)
-    {
-        alert("renting room ");
-    }
-
-}
-*/
