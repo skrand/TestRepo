@@ -1,8 +1,8 @@
-<DOCTYPE! html>
+<!DOCTYPE html>
 <html>
 
 <head>
-<title>Westerdals Oslo ACT - Forside</title>
+<title>Westerdals Oslo ACT - 2016</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/stylesheet.css">
 </head>
@@ -22,10 +22,9 @@
 
 		<div id="centerDiv">
 			<article id="leftArticle">
-				<img src="../images/info.jpg">
+				<img src="../images/fubar.jpg">
 			</article>
 		</div>
-
 		<aside id="leftAside">
 			<p><b>Logg inn for å <br>reservere rom</b></p>
             <?php

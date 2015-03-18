@@ -25,7 +25,6 @@
 				<img src="../images/fubar.jpg">
 			</article>
 		</div>
-
 		<aside id="leftAside">
 			<p><b>Logg inn for å <br>reservere rom</b></p>
             <?php
