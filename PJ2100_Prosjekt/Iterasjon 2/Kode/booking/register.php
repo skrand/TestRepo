@@ -15,6 +15,7 @@ require 'config.php';
 <form action="registeruser.php" method="post">
     <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
     <?php
+    // Notify user that the username is taken
     if (isset($_GET['usernametaken']))
         echo "<p class=''>Brukernavn er allerede i bruk.</p>";
     ?>

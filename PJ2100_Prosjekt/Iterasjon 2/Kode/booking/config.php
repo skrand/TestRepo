@@ -31,7 +31,6 @@ function verifyLogin($username, $password, $db)
     $result = $sql->fetch(PDO::FETCH_ASSOC);
     if (!password_verify($password, $result['Passord']))
     {
-        $_SESSION['badlogin'] = "badlogin";
         header("Location: ../index.php?badlogin");
         die();
     }

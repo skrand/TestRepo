@@ -18,7 +18,7 @@
 		<!--center bilde-->
 		<div id="centerDiv">
 			<article id="leftArticle">
-				<img src="../images/west2.jpg" alt="Konseptskisse" />
+				<img src="images/west2.jpg" alt="Konseptskisse" />
 			</article>
 			
 		</div>

@@ -1,9 +1,9 @@
 <?php
-//require 'config.php';
+// Used to verify if a user is logged in
 
+// Redirect to main
 if (!isValidSession())
 {
-    $_SESSION['badlogin'] = "badlogin";
     header("Location: ../index.php?badlogin");
     die();
 }

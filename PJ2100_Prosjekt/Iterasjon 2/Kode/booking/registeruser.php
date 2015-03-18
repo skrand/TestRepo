@@ -5,18 +5,22 @@ require 'config.php';
 if (!isset($_POST['username'])) redirect();
 if (!isset($_POST['password'])) redirect();
 
+// Get the variables
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// TODO Verify if username is unique
+// Verify that the username is unique
 if (usernameIsUnique($username, $db) === false)
 {
+    // Redirect to registerpage with name taken flag
     header("Location: register.php?usernametaken");
     die();
 }
 
+// Hash password
 $passhash = password_hash($password, PASSWORD_DEFAULT);
-// Check if username is unique
+
+// Insert the new user into the database
 $sql = $db->prepare("INSERT INTO Bruker (Brukernavn, Passord) VALUES (:user, :pass);");
 $sql->execute(array(
     'user' => $username,
@@ -27,9 +31,9 @@ $sql->execute(array(
 header("Location: ../index.php?registersuccess");
 die();
 
+// Redirects to registerpage
 function redirect()
 {
-    $_SESSION['badlogin'] = "badlogin";
-    header("Location: ../index.php?badlogin");
+    header("Location: register.php");
     die();
 }

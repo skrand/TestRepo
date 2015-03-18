@@ -54,7 +54,7 @@ require 'verifysession.php';
 <a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?> datePickerButton">- 30</a>
 <a href="?dato=<?=$prevWeek;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 7</a>
 <a href="?dato=<?=$prevDay;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 1</a>
-<b>[<?php echo $queryDate; ?>]</b>
+<b><?php echo $queryDate; ?></b>
 <a href="?dato=<?=$nextDay;?>" class="datePickerButton">+ 1</a>
 <a href="?dato=<?=$nextWeek;?>" class="datePickerButton">+ 7</a>
 <a href="?dato=<?=$nextMonth;?>" class="datePickerButton">+ 30</a>
@@ -204,7 +204,7 @@ require 'verifysession.php';
                 }
                 else
                 {
-                    $timeInfo = "Opptatt, leies av '" . getUserFromId($isRented->BrukerId, $db)['Brukernavn'] . "'";
+                    $timeInfo = "Opptatt, leies av " . getUserFromId($isRented->BrukerId, $db)['Brukernavn'];
                 }
             }
             $timestamp = str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
@@ -221,10 +221,9 @@ require 'verifysession.php';
                         else if (!$isRented)
                         {
                         ?>
-                            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00" ?>">
-                                <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
-                                <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
-                                <!-- TODO Sleng på RomIDen på action urlen-->
+                            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00&roomid=" . $roomId ?>">
+                                <label>Antall timer <input type="number" min="1" max="8" placeholder="Antall timer" name ="hourinput" required=""></label>
+                                <input type="submit" value="Book rom" name="booking">
                             </form>
                             <?php } ?>
                     </div>
