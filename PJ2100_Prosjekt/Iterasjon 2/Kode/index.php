@@ -1,5 +1,5 @@
-<DOCTYPE! html>
 <?php require 'booking/config.php'; ?>
+<DOCTYPE! html>
 <html>
 
 <head>

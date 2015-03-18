@@ -1,3 +1,21 @@
+var prevElement = null;
+var selectedClass = " selected";
+var childSelectedClass = " timeChildSelected";
+
+function clicked(element)
+{
+    element.className += selectedClass;
+    element.firstElementChild.className += childSelectedClass;
+
+    if (prevElement)
+    {
+        prevElement.className = prevElement.className.replace(selectedClass, '');
+        prevElement.firstElementChild.className = prevElement.firstElementChild.className.replace(childSelectedClass, '');
+    }
+    prevElement = element;
+}
+
+
 /*
 var firstSelected = 100;
 var selectedBgColor = '#999';
