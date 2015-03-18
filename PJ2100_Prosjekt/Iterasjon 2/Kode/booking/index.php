@@ -59,6 +59,42 @@ require 'verifysession.php';
 <a href="?dato=<?=$nextWeek;?>">+ uke</a>
 <a href="?dato=<?=$nextMonth;?>">+ måned</a>
 <br><br>
+
+<?php
+// Set datoen
+$queryDate = date('Y-m-d');
+$dateButtonTag = "deactivated";
+if (isset($_GET['dato']))
+{
+    $queryDate = $_GET['dato'];
+}
+// Begrens slik at man ikke kan gå lengre tilbake en dags dato
+if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+{
+    $queryDate = date('Y-m-d');
+    $dateButtonTag = "deactivated";
+}
+else
+{
+    $dateButtonTag = "";
+}
+$prevDay = date('Y-m-d', strtotime($queryDate .' -1 day'));
+$nextDay = date('Y-m-d', strtotime($queryDate .' +1 day'));
+$prevWeek = date('Y-m-d', strtotime($queryDate .' -1 week'));
+$nextWeek = date('Y-m-d', strtotime($queryDate .' +1 week'));
+$prevMonth = date('Y-m-d', strtotime($queryDate .' -1 month'));
+$nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
+?>
+
+<h3>Velg dato</h3>
+<a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?>">- måned</a>
+<a href="?dato=<?=$prevWeek;?>" class="<?php echo $dateButtonTag ?>">- uke</a>
+<a href="?dato=<?=$prevDay;?>" class="<?php echo $dateButtonTag ?>">- dag</a>
+<b>[<?php echo $queryDate; ?>]</b>
+<a href="?dato=<?=$nextDay;?>">+ dag</a>
+<a href="?dato=<?=$nextWeek;?>">+ uke</a>
+<a href="?dato=<?=$nextMonth;?>">+ måned</a>
+<br><br>
     <?php
 
     // Get all filter variables
@@ -133,7 +169,7 @@ require 'verifysession.php';
         ));
 
         // Populate array with boolean for whether the room is occupied for each hour
-        $rented = array_fill(0, 13, false);
+        /*$rented = array_fill(0, 13, false);
         while($rent = $sql->fetch())
         {
             for ($i = 8; $i <= 20; $i ++)
@@ -149,6 +185,25 @@ require 'verifysession.php';
                 if ($cur > $start - 1 && $cur < $end - 1)
                 {
                     $rented[$i - 8] = true;
+                }
+            }
+        }*/
+        $rented = array_fill(0, 13, null);
+        while($rent = $sql->fetch())
+        {
+            for ($i = 8; $i <= 20; $i ++)
+            {
+                $startTime = $rent->Tidspunkt;
+                $hour = $i * 3600;
+                $hours = $rent->AntallTimer;
+
+                $start = strtotime($rent->Tidspunkt);
+                $end = $start + (3600 * $hours);
+                $cur = strtotime(date('H:i:s', $hour));
+
+                if ($cur > $start - 1 && $cur < $end - 1)
+                {
+                    $rented[$i - 8] = $rent;
                 }
             }
         }
@@ -167,20 +222,56 @@ require 'verifysession.php';
 
             // TODO Replace this with a PHP implementation for iteration 2
             // This won't work (to my limited knowledge)/be difficult to get to communicate correctly with a database...
-            $mouseClickEvent = "onclick='clickedTimeElement(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");' ";
+            /*$mouseClickEvent = "onclick='clickedTimeElement(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");' ";
             $mouseOverEvent = "onmouseover='addHoverToSelection(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");'";
-            echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";
+            echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";*/
+            echo "<div class='timeBlock' onclick='clicked(this);' style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
+            $renterIsLoggedIn = false;
+            $timeInfo = "Ledig!";
+            if ($isRented)
+            {
+
+                if ($isRented->BrukerId == getUserIdFromName($_SESSION['user'], $db))
+                {
+                    $timeInfo = "Du leier denne!";
+                    $renterIsLoggedIn = true;
+                }
+                else
+                {
+
+                    $timeInfo = "Leies av '" . getUserFromId($isRented->BrukerId, $db)['Brukernavn'] . "'";
+                }
+                //$timeInfo = "LEIES AV: " . $isRented . " LOGGET INN: " . $_SESSION['user'] . "[" . getUserIdFromName($_SESSION['user'], $db) . "]";
+            }
+            //$timeInfo = $isRented . " - " . getUserIdFromName($_SESSION['user'], $db);
+            ?>
+                    <div class='timeChild'>
+                        <p><?php echo $timeInfo ?></p>
+                        <?php
+            if ($isRented)
+            {
+                echo "<a href='avbestill.php?'" . ">Avbestill</a>";
+            }
+            ?>
+                        <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
+                            <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
+                            <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
+                        </form>
+                    </div>
+                </div>
+
+                <?php
             $i ++;
         }
         ?>
-        <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
-            <br />
-            <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
-            <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
-            <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
-        </form>
+            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
+                <br />
+                <label>Fra tidspunkt (f.eks. 10:00)<input type="time" placeholder="Tidspunkt (f.eks: 10:00)" name ="timeinput"></label>
+                <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
+                <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
+            </form>
 
-        <?php
+            <?php
         echo "</div>";
     }
 
@@ -190,6 +281,7 @@ require 'verifysession.php';
         echo "<br /><br />No search results...";
     }
     ?>
+
 
 <script src="main.js"></script>
 </body>

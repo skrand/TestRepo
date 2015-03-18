@@ -50,6 +50,18 @@ function getUserIdFromName($username, $db)
     return $userid;
 }
 
+function getUserFromId($id, $db)
+{
+    $sql = $db->prepare("SELECT * FROM Bruker WHERE BrukerId LIKE :brukerid;");
+    $sql->setFetchMode(PDO::FETCH_OBJ);
+    $sql->execute(array(
+        'brukerid' => $id
+    ));
+
+    $results = $sql->fetch(PDO::FETCH_ASSOC);
+    return $results;
+}
+
 function isValidSession()
 {
     if (!isset($_SESSION['user'])) return false;
