@@ -60,41 +60,6 @@ require 'verifysession.php';
 <a href="?dato=<?=$nextMonth;?>">+ måned</a>
 <br><br>
 
-<?php
-// Set datoen
-$queryDate = date('Y-m-d');
-$dateButtonTag = "deactivated";
-if (isset($_GET['dato']))
-{
-    $queryDate = $_GET['dato'];
-}
-// Begrens slik at man ikke kan gå lengre tilbake en dags dato
-if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
-{
-    $queryDate = date('Y-m-d');
-    $dateButtonTag = "deactivated";
-}
-else
-{
-    $dateButtonTag = "";
-}
-$prevDay = date('Y-m-d', strtotime($queryDate .' -1 day'));
-$nextDay = date('Y-m-d', strtotime($queryDate .' +1 day'));
-$prevWeek = date('Y-m-d', strtotime($queryDate .' -1 week'));
-$nextWeek = date('Y-m-d', strtotime($queryDate .' +1 week'));
-$prevMonth = date('Y-m-d', strtotime($queryDate .' -1 month'));
-$nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
-?>
-
-<h3>Velg dato</h3>
-<a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?>">- måned</a>
-<a href="?dato=<?=$prevWeek;?>" class="<?php echo $dateButtonTag ?>">- uke</a>
-<a href="?dato=<?=$prevDay;?>" class="<?php echo $dateButtonTag ?>">- dag</a>
-<b>[<?php echo $queryDate; ?>]</b>
-<a href="?dato=<?=$nextDay;?>">+ dag</a>
-<a href="?dato=<?=$nextWeek;?>">+ uke</a>
-<a href="?dato=<?=$nextMonth;?>">+ måned</a>
-<br><br>
     <?php
 
     // Get all filter variables
