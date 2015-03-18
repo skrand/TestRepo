@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<DOCTYPE! html>
 <html>
 
 <head>
-<title>Westerdals Oslo ACT - 2016</title>
+<title>Westerdals Oslo ACT - Forside</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../css/stylesheet.css">
 </head>
@@ -17,24 +17,36 @@
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
 				<li><a href="studier.html">Studier</a> </li>
 				<li><a href="info.html">Informasjon</a><li>
-				<li><a href="kontakt.html">Kontakt</a> </li>
-				<li><a href="flytter.html">2016</a></li>
 			</ul>
 		</div>
 
 		<div id="centerDiv">
 			<article id="leftArticle">
-				<img src="../images/west.jpg">
+				<img src="../images/info.jpg">
+			</article>
 		</div>
 
 		<aside id="leftAside">
 			<p><b>Logg inn for å <br>reservere rom</b></p>
-			<form action="../booking/login.php" method="post">
+            <?php
+            if (isset($_GET['registersuccess']))
+            {
+                echo "Ny bruker registrert!";
+            }
+            ?>
+			<form action="booking/login.php" method="post">
 				<input type="text" placeholder="Brukernavn" name="username" required="required"><br>
-				<input type="password" placeholder="Passord" name="password" required="required"><br>
+				<input type="password" placeholder="Passord" name="password"required="required"><br>
 				<br>
 				<input type="submit" value="Logg inn">
 			</form>
+            <?php
+            if (isset($_GET['badlogin']))
+            {
+                echo "<p>Incorrect login.</p>";
+            }
+            ?>
+            <a href="booking/register.php">Registrer ny bruker</a>
 
 		</aside>
 		<aside id="leftAside2">

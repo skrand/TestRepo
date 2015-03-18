@@ -46,7 +46,7 @@ li a:hover {
 	height: 3%;
 	width: 100%;
 	top: 10%;
-	left: 64%;
+	left: 74%;
 	text-align: right;
 }
 
@@ -55,15 +55,13 @@ li a:hover {
 /*logo*/
 #logoDiv {
 	position: absolute;
-	left: -5%;
-	top: -5%;
-	height: 30%;
-	width: 30%;
+	left: 2.5%;
+	top: 3%;
+	height: 13%;
 	float: left;
 	overflow: hidden;
 }
 #logoDiv img {
-	width: 100%;
 	height: 100%;
 }
 
@@ -121,9 +119,10 @@ li a:hover {
 #leftArticle {
 	position: absolute;
 	height: 100%;
-	width: 33%;
+	width: 100%;
 	left: 0;
 	top: 0;
+	background-color: #78557d;
 }
 
 #leftArticle p, h1{
@@ -131,25 +130,10 @@ li a:hover {
 }
 
 #leftArticle img {
-	width: 303%;
+	width: 100%;
 	height: 100%;
 }
 
-#middleArticle {
-	position: absolute;
-	height: 100%;
-	width: 33%;
-	left: 33%;
-	top: 0;
-}
-
-#rightArticle {
-	position: absolute;
-	height: 100%;
-	width: 34%;
-	left: 66%;
-	top: 0;
-}
 /*center div som inneholder article tags*/
 #centerDiv{
 	top: 17%;
@@ -259,7 +243,7 @@ footer {
 
 @media screen and (min-width: 700px) and (max-width: 1350px) {
 	#menyDiv {
-		left: 53%;
+		left: 66.5%;
 	}
 	#leftAside2 {
 	padding: 1%;
@@ -290,11 +274,8 @@ footer {
 
 #logoDiv {
 	position: absolute;
-	left: -5%;
-	top: -5%;
-	height: 27%;
-	width: 30%;
-	float: left;
-	overflow: hidden;
+	left: 3%;
+	top: 5%;
+	height: 10%;
 }
 }

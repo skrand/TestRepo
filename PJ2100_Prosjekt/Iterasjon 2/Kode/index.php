@@ -1,3 +1,4 @@
+<DOCTYPE! html>
 <?php require 'booking/config.php'; ?>
 <html>
 
@@ -20,8 +21,6 @@
 				<li><a href="https://nith.itslearning.com/Index.aspx">Intranett</a></li>
 				<li><a href="html/studier.html">Studier</a> </li>
 				<li><a href="html/info.html">Informasjon</a><li>
-				<li><a href="html/kontakt.html">Kontakt</a> </li>
-				<li><a href="html/flytter.html">2016</a></li>
 			</ul>
 		</div>
 		<!-- infodiv som skal ha informasjon på hver side -->

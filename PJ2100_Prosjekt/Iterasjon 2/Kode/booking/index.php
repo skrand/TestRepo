@@ -12,8 +12,9 @@ require 'verifysession.php';
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<a href="../index.php"><img src="../images/logo3.png" class="forsideLink"/></a>
-<h1>Book et rom</h1>
+<header>
+<a href="../index.php"><img src="../images/logo4.png"/></a>
+</header>
 <h3>Filter</h3>
 <form method="post">
     <label><input type="checkbox" name="size1" value="2" checked>2 personer</label>

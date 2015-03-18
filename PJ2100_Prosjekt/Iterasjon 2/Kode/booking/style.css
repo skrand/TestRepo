@@ -6,6 +6,16 @@ body {
     color: #FFF;
 }
 
+header {
+}
+
+header img {
+    position: relative;
+    float: right;
+    width: 25%;
+
+}
+
 a {
     font-family: verdana;
     color: #FFF;
@@ -18,10 +28,10 @@ a:hover {
 }
 
 h1 {
-    color: #000;
+    color: #FFF;
 }
 
-
+/*brukes ikke lenger
 .forsideLink {
     position: absolute;
     right: 0%;
@@ -34,7 +44,7 @@ h1 {
 .forsideLink img {
     width: 100%;'
 }
-
+*/
 .roomBlock
 {
     display: block;
@@ -42,7 +52,7 @@ h1 {
     padding: 6px;
 }
 
-.roomblock:nth-child(odd) {
+.roomblock:nth-child(even) {
     background-color: #59a2b8;
 }
 .timeBlock
