@@ -101,3 +101,16 @@ h1 {
     position: absolute;
     margin: auto;
 }
+
+.selected
+{
+    width: 200px;
+}
+.timeChild
+{
+    display: none;
+}
+.timeChildSelected
+{
+    display: block;
+}

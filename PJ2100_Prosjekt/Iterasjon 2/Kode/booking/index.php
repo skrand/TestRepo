@@ -250,7 +250,7 @@ $nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
                         <?php
             if ($isRented)
             {
-                echo "<a href='avbestill.php?'" . ">Avbestill</a>";
+                echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
             }
             ?>
                         <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
