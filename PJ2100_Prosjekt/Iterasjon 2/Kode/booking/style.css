@@ -2,8 +2,9 @@
 
 body {
     font-family: verdana;
-    background-color: #63b1c9;
+    background-color: #78557d;
     color: #FFF;
+    font-size: 14px;
 }
 
 header {
@@ -18,43 +19,23 @@ header img {
 
 a {
     font-family: verdana;
-    color: #FFF;
+    color: #fff;
     text-decoration: underline;
     font-weight: bold;
 }
 
 a:hover {
-    color: #f06e67;
+    color: #000;
 }
 
-h1 {
-    color: #FFF;
-}
-
-/*brukes ikke lenger
-.forsideLink {
-    position: absolute;
-    right: 0%;
-    top: -5%;
-    width: 30%;
-    height: 25%;
-    font-size: 12px;
-}
-
-.forsideLink img {
-    width: 100%;'
-}
-*/
 .roomBlock
 {
     display: block;
     margin-bottom: 6px;
     padding: 6px;
+    border-top: 2px solid #fff;
 }
 
-.roomblock:nth-child(even) {
-    background-color: #59a2b8;
-}
 .timeBlock
 {
     border: 1px solid transparent;
@@ -79,7 +60,7 @@ h1 {
 .infoBlock
 {
     padding: 4px;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .button

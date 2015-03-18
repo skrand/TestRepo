@@ -181,7 +181,7 @@ require 'verifysession.php';
             $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
             if ($isRented)
             {
-                $bgColor = "f55";
+                $bgColor = "999";
                 $rentedVal = 1;
             }
 
