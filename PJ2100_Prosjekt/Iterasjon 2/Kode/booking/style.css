@@ -83,6 +83,7 @@ a:hover {
     cursor: default;
     pointer-events: none;
     text-decoration: none;
+    background-color: transparent;
 }
 
 #registerDiv {
@@ -102,4 +103,9 @@ a:hover {
 .timeChildSelected
 {
     display: block;
+}
+.datePickerButton
+{
+    border: 1px solid #000;
+    padding: 6px;
 }

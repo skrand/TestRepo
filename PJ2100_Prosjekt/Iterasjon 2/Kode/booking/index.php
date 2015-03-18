@@ -51,13 +51,13 @@ require 'verifysession.php';
 ?>
 
 <h3>Velg dato</h3>
-<a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?>">- måned</a>
-<a href="?dato=<?=$prevWeek;?>" class="<?php echo $dateButtonTag ?>">- uke</a>
-<a href="?dato=<?=$prevDay;?>" class="<?php echo $dateButtonTag ?>">- dag</a>
+<a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?> datePickerButton">- 30</a>
+<a href="?dato=<?=$prevWeek;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 7</a>
+<a href="?dato=<?=$prevDay;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 1</a>
 <b>[<?php echo $queryDate; ?>]</b>
-<a href="?dato=<?=$nextDay;?>">+ dag</a>
-<a href="?dato=<?=$nextWeek;?>">+ uke</a>
-<a href="?dato=<?=$nextMonth;?>">+ måned</a>
+<a href="?dato=<?=$nextDay;?>" class="datePickerButton">+ 1</a>
+<a href="?dato=<?=$nextWeek;?>" class="datePickerButton">+ 7</a>
+<a href="?dato=<?=$nextMonth;?>" class="datePickerButton">+ 30</a>
 <br><br>
 
     <?php
