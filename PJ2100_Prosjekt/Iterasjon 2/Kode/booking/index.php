@@ -248,15 +248,18 @@ $nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
                     <div class='timeChild'>
                         <p><?php echo $timeInfo ?></p>
                         <?php
-            if ($isRented)
-            {
-                echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
-            }
-            ?>
-                        <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
-                            <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
-                            <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
-                        </form>
+                        if ($renterIsLoggedIn)
+                        {
+                            echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
+                        }
+                        else if (!$isRented)
+                        {
+                        ?>
+                            <form method="post" action="bekreftelse.php?date=<?php echo $queryDate ?>">
+                                <label>Antall timer <input type="number" min="0" max="8" placeholder="Antall timer" name ="hourinput"></label>
+                                <input type="submit" value="Book rom" name="booking<?php echo $roomId ?>"> <!-- Sleng på tilsvarende RomId på knappen -->
+                            </form>
+                            <?php } ?>
                     </div>
                 </div>
 
