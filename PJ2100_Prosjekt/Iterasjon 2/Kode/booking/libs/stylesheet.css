@@ -32,7 +32,11 @@ header img {
 .mainBlock form {
     margin: 0;
 }
-
+#blockFilter h3
+{
+    color: #000;
+    font-size: 16px;
+}
 .mainBlock h3 {
     color: #78557d;
     display: inline-block;
