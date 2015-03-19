@@ -69,7 +69,6 @@ a {
     font-family: verdana;
     color: #000;
     text-decoration: underline;
-    font-weight: bold;
 }
 
 a:hover {
@@ -122,7 +121,7 @@ a:hover {
     cursor: default;
     pointer-events: none;
     text-decoration: none;
-    background-color: transparent !important;
+    background-color: #eee !important;
 }
 
 #registerDiv {
@@ -150,6 +149,7 @@ a:hover {
 }
 .button
 {
+    border: 1px solid transparent;
     padding: 6px;
     display: inline-block;
     background-color: #ccc;
@@ -157,8 +157,13 @@ a:hover {
 }
 .button:hover
 {
-    background-color: #ddd;
+    border: 1px solid #000;
 }
+.buttonBook
+{
+    background-color: #7fc79a;
+}
+
 .timeBlock, .button
 {
     cursor: pointer;

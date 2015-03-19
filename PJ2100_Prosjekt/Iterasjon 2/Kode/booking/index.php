@@ -170,8 +170,15 @@ require 'verifysession.php';
                     $start = strtotime($rent->Tidspunkt);
                     $end = $start + (3600 * $hours);
                     $cur = strtotime(date('H:i:s', $hour));
+                   /* echo "START: " . $startTime;
+                    echo "<br>CUR: " . date('H:i:s', $cur);
+                    die();*/
 
-                    if ($cur > $start - 1 && $cur < $end - 1)
+                    /*if ($cur > $start - 1 && $cur < $end - 1)
+                    {
+                        $rented[$i - 8] = $rent;
+                    }*/
+                    if ($startTime == date('H:i:s', $hour))
                     {
                         $rented[$i - 8] = $rent;
                     }
@@ -183,12 +190,7 @@ require 'verifysession.php';
             foreach($rented as $isRented)
             {
                 $bgColor = "ddd";
-                $rentedVal = 0; // Must use an int, when using a boolean the function would mess up for some reason. Yay for never having touched javascript before...
-                if ($isRented)
-                {
-                    $bgColor = "999";
-                    $rentedVal = 1;
-                }
+                $rentButtonClass = " buttonBook";
                 $renterIsLoggedIn = false;
                 $timeInfo = "Ledig!";
                 if ($isRented)
@@ -198,10 +200,12 @@ require 'verifysession.php';
                         $timeInfo = "Du leier her!";
                         $renterIsLoggedIn = true;
                         $bgColor = "7fc79a";
+                        $rentButtonClass = "";
                     }
                     else // Rented by someone else
                     {
                         $timeInfo = "Opptatt, leies av " . getUserFromId($isRented->BrukerId, $db)['Brukernavn'];
+                        $bgColor = "999";
                     }
                 }
                 $timestamp = str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00";
@@ -218,10 +222,7 @@ require 'verifysession.php';
                             else if (!$isRented)
                             {
                                 ?>
-                                <form method="post" action="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00&roomid=" . $roomId ?>">
-                                    <label>Antall timer <input type="number" min="1" max="8" value="1" name ="hourinput" required=""></label>
-                                    <input type="submit" value="Book rom" name="booking">
-                                </form>
+                                <a href="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00&roomid=" . $roomId ?>" class="button <?php echo $rentButtonClass ?>">Book</a>
                                 <?php
                             } ?>
                         </div>
@@ -236,7 +237,7 @@ require 'verifysession.php';
         // Check if any rows were returned
         if ($roomSql->rowCount() <= 0)
         {
-            echo "<p id='noResults'>Ingen resultater passer til søket... Prøv igjen med et breder søk.</p>";
+            echo "<p id='noResults'>Ingen resultater passer til søket... Prøv igjen med et bredere søk.</p>";
         }
         ?>
     </div>
