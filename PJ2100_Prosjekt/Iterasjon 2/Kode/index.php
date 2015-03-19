@@ -48,8 +48,7 @@
 		</aside>
 		<!-- venstre side CK32 reklamen -->
 		<aside id="leftAside2">
-			<H1>CK<BR>32<H1>
-			<p>Christian Krohgs gate 32</p>
+			<img src="images/CK32.jpg" alt="CK32" />
 		</aside>
 
 		<!-- footer -->
