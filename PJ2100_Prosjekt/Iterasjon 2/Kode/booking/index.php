@@ -1,10 +1,6 @@
 <?php
 require 'config.php';
 require 'verifysession.php';
-/* ITERASJON 2
- * - Dato velger
- * - Begrense bestilling til ledige timer
- * */
 ?>
 
 <html>
@@ -70,7 +66,7 @@ require 'verifysession.php';
 
     <div class="mainBlock">
 
-        <p>Trykk på et tidspunkt for å booke rom.</p>
+        <p><i>Trykk på et tidspunkt for å booke rom.</i></p>
         <?php
 
         // Get all filter variables

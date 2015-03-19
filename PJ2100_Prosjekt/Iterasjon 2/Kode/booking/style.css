@@ -10,7 +10,7 @@ body {
 
 header {
     width: 100%;
-    background-color: #78557d;
+    background-color: #f06e67;
     padding: 12px 0;
 }
 
@@ -40,6 +40,7 @@ header img {
     width: 100%;
     text-align: center;
     margin: 0.4em 0;
+    font-size: 1.5em;
 }
 .mainBlock p
 {
@@ -112,7 +113,7 @@ a:hover {
 .infoBlock
 {
     padding: 4px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .button
@@ -167,4 +168,12 @@ a:hover {
     display: inline-block;
     background-color: #ccc;
     text-decoration: none;
+}
+
+@media (max-width:440px)
+{
+    #registerDiv
+    {
+        width: 100%;
+    }
 }
