@@ -175,7 +175,8 @@ a:hover {
 {
     #registerDiv
     {
-        width: 100%;
+        width: 95%;
+        padding: 0 2.5%;
     }
 }
 @media (max-width:1052px)
