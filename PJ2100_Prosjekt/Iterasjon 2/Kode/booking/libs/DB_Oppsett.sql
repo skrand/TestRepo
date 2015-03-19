@@ -29,7 +29,6 @@ CREATE TABLE LeieAvRom
     BrukerId int NOT NULL,
     Dato date NOT NULL,
     Tidspunkt time NOT NULL,
-    AntallTimer int NOT NULL,
     CONSTRAINT pk_LeieId PRIMARY KEY (RomId, Dato, Tidspunkt),
     CONSTRAINT fk_RomId FOREIGN KEY (RomId) REFERENCES Rom(RomId),
     CONSTRAINT fk_BrukerId FOREIGN KEY (BrukerId) REFERENCES Bruker(BrukerId)

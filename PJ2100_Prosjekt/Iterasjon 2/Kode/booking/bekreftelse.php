@@ -17,7 +17,7 @@ $roomid = $_GET['roomid'];
 
 // Inser the new booking to the database
 $userid = getUserIdFromName($_SESSION['user'], $db);
-$sql = $db->prepare("INSERT INTO LeieAvRom ('RomId', BrukerId, Dato, Tidspunkt) VALUES (:roomid, :userid, :date, :time);");
+$sql = $db->prepare("INSERT INTO LeieAvRom (RomId, BrukerId, Dato, Tidspunkt) VALUES (:roomid, :userid, :date, :time);");
 $sql->execute(array(
     'roomid' => $roomid,
     'userid' => $userid,

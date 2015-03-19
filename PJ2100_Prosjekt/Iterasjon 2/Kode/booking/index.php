@@ -5,8 +5,8 @@ require 'verifysession.php';
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="libs/stylesheet.css">
+    <script src="libs/main.js"></script>
 </head>
 <body>
 <?php require 'header.php'; ?>
@@ -26,19 +26,15 @@ require 'verifysession.php';
                     // Set datoen
                     $queryDate = date('Y-m-d');
                     $dateButtonTagDay = "deactivated";
-                    $dateButtonTagWeek = "deactivated";
-                    $dateButtonTagMonth = "deactivated";
                     if (isset($_GET['dato']))
                     {
                         $queryDate = $_GET['dato'];
                     }
-                    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
-                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day')) $dateButtonTagDay = "deactivated";
-                    else $dateButtonTagDay = "";
-                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 week')) $dateButtonTagWeek = "deactivated";
-                    else $dateButtonTagMonth = "";
-                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 month')) $dateButtonTagMonth = "deactivated";
-                    else $dateButtonTagMonth = "";
+                    // Begrens slik at man ikke kan gå lengre tilbake enn dags dato
+                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
+                        $dateButtonTagDay = "deactivated";
+                    else
+                        $dateButtonTagDay = "";
 
                     $prevDay = date('Y-m-d', strtotime($queryDate .' -1 day'));
                     $nextDay = date('Y-m-d', strtotime($queryDate .' +1 day'));
@@ -49,8 +45,8 @@ require 'verifysession.php';
                 ?>
 
                 <a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTagDay ?> button">- 30</a>
-                <a href="?dato=<?=$prevWeek;?>" class="button <?php echo $dateButtonTagWeek ?>">- 7</a>
-                <a href="?dato=<?=$prevDay;?>" class="button <?php echo $dateButtonTagMonth ?>">- 1</a>
+                <a href="?dato=<?=$prevWeek;?>" class="button <?php echo $dateButtonTagDay ?>">- 7</a>
+                <a href="?dato=<?=$prevDay;?>" class="button <?php echo $dateButtonTagDay ?>">- 1</a>
                 <a href="index.php" class="button"><?php echo $queryDate; ?></a>
                 <a href="?dato=<?=$nextDay;?>" class="button">+ 1</a>
                 <a href="?dato=<?=$nextWeek;?>" class="button">+ 7</a>
@@ -178,8 +174,18 @@ require 'verifysession.php';
                     {
                         $rented[$i - 8] = $rent;
                     }*/
-                    if ($startTime == date('H:i:s', $hour))
+
+                    if ($startTime == date('H:i:s', $cur))
                     {
+                        /*$timeA = $startTime;
+                        $timeB = date('H:i:s', $hour);
+                        echo $timeA;
+                        echo "<br>";
+                        echo $timeB;
+                        echo "<br>";
+                        $test = $timeA == $timeB;
+                        var_dump($test);*/
+                        //die();
                         $rented[$i - 8] = $rent;
                     }
                 }

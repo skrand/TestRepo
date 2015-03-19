@@ -198,15 +198,10 @@ footer {
 @media screen and (min-width: 700px) and (max-width: 1350px) {
 .fill {
 	width: 90%;
-}
 
 
 #leftAside {
 	line-height: 0.8;
-}
-
-#leftAside2 {
-	top: 52%;
 }
 
 #logoDiv {
@@ -234,7 +229,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
 	#leftAside {
 		top: 0;
 		left: 0;
-		width: 50%;
+		width: 100%;
 		height: 100%;
 	}
 
@@ -243,19 +238,8 @@ and (-webkit-min-device-pixel-ratio: 1) {
 	}
 
 	#leftAside2 {
-		top: 0;
-		left: 50%;
-		height: 100%;
-		width: 50%;
-		background-color: #face66;
+		display: none;
 	}
-
-	#leftAside2 img{
-		height: 30%;
-
-	}
-
-	
 
 	#logoDiv {
 		display: none;

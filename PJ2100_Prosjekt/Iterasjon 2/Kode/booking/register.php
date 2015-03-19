@@ -6,7 +6,7 @@ require 'config.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="libs/stylesheet.css">
 </head>
 <body>
 <?php require 'header.php'; ?>

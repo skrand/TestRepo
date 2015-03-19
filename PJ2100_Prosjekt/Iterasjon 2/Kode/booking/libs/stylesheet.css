@@ -21,13 +21,14 @@ header img {
 }
 #content
 {
-
+    
 }
 .mainBlock
 {
     display: block;
     background-color: #fff;
-    margin: 8px 0;
+    margin: 8px auto;
+    width: 100%;
 }
 .mainBlock form
 {
@@ -56,7 +57,7 @@ header img {
 }
 #blockFilter .center
 {
-    width: 818px;
+    width: 828px;
 }
 .timeBlock input
 {
@@ -93,6 +94,7 @@ a:hover {
     /*width: 54px;*/
     width: 6%;
     min-width: 70px;
+    margin-bottom: 4px;
     text-align: center;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -177,6 +179,14 @@ a:hover {
     font-style: italic;
 }
 
+@media (max-width:256px)
+{
+    header img
+    {
+        width: 100%;
+    }
+}
+
 @media (max-width:440px)
 {
     #registerDiv
@@ -198,5 +208,19 @@ a:hover {
     .timeBlock
     {
         width: 70px;
+    }
+}
+@media (max-width:838px)
+{
+    #blockFilter .center
+    {
+        width: 100%;
+    }
+}
+@media (min-width:1280px)
+{
+    #content
+    {
+
     }
 }
