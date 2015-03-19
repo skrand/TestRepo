@@ -7,14 +7,10 @@ class DB
     public $database = null;
 
     // Database instillinger
-    /*private $dbHost = "127.0.0.1";
+    private $dbHost = "127.0.0.1";
     private $dbName = "GruppeRomBooking";
     private $dbUser = "root";
-    private $dbPass = "";*/
-    private $dbHost = "tordtroen.com.mysql";
-    private $dbName = "tordtroen_com";
-    private $dbUser = "tordtroen_com";
-    private $dbPass = "3wzQyGsm";
+    private $dbPass = "";
 
     // Konstruktør
     function __construct()
