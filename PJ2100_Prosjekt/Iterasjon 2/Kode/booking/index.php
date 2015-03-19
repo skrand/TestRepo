@@ -21,48 +21,47 @@ require 'verifysession.php';
                 <label><input type="checkbox" name="size3" value="4" checked>4 personer</label>
                 <label><input type="checkbox" name="projector" value="j">Må ha prosjektor</label>
                 <input type="submit" value="Filtrer" name="filter">
+
+                <?php
+                    // Set datoen
+                    $queryDate = date('Y-m-d');
+                    $dateButtonTagDay = "deactivated";
+                    $dateButtonTagWeek = "deactivated";
+                    $dateButtonTagMonth = "deactivated";
+                    if (isset($_GET['dato']))
+                    {
+                        $queryDate = $_GET['dato'];
+                    }
+                    // Begrens slik at man ikke kan gå lengre tilbake en dags dato
+                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day')) $dateButtonTagDay = "deactivated";
+                    else $dateButtonTagDay = "";
+                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 week')) $dateButtonTagWeek = "deactivated";
+                    else $dateButtonTagMonth = "";
+                    if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 month')) $dateButtonTagMonth = "deactivated";
+                    else $dateButtonTagMonth = "";
+
+                    $prevDay = date('Y-m-d', strtotime($queryDate .' -1 day'));
+                    $nextDay = date('Y-m-d', strtotime($queryDate .' +1 day'));
+                    $prevWeek = date('Y-m-d', strtotime($queryDate .' -1 week'));
+                    $nextWeek = date('Y-m-d', strtotime($queryDate .' +1 week'));
+                    $prevMonth = date('Y-m-d', strtotime($queryDate .' -1 month'));
+                    $nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
+                ?>
+
+                <a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTagDay ?> button">- 30</a>
+                <a href="?dato=<?=$prevWeek;?>" class="button <?php echo $dateButtonTagWeek ?>">- 7</a>
+                <a href="?dato=<?=$prevDay;?>" class="button <?php echo $dateButtonTagMonth ?>">- 1</a>
+                <a href="index.php" class="button"><?php echo $queryDate; ?></a>
+                <a href="?dato=<?=$nextDay;?>" class="button">+ 1</a>
+                <a href="?dato=<?=$nextWeek;?>" class="button">+ 7</a>
+                <a href="?dato=<?=$nextMonth;?>" class="button">+ 30</a>
             </form>
         </div>
     </div>
 
-    <?php
-        // Set datoen
-        $queryDate = date('Y-m-d');
-        $dateButtonTag = "deactivated";
-        if (isset($_GET['dato']))
-        {
-            $queryDate = $_GET['dato'];
-        }
-        // Begrens slik at man ikke kan gå lengre tilbake en dags dato
-        if (strtotime($queryDate) < strtotime(date('Y-m-d') . ' +1 day'))
-        {
-            $queryDate = date('Y-m-d');
-            $dateButtonTag = "deactivated";
-        }
-        else
-        {
-            $dateButtonTag = "";
-        }
-        $prevDay = date('Y-m-d', strtotime($queryDate .' -1 day'));
-        $nextDay = date('Y-m-d', strtotime($queryDate .' +1 day'));
-        $prevWeek = date('Y-m-d', strtotime($queryDate .' -1 week'));
-        $nextWeek = date('Y-m-d', strtotime($queryDate .' +1 week'));
-        $prevMonth = date('Y-m-d', strtotime($queryDate .' -1 month'));
-        $nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
-    ?>
 
-    <div id="blockDate" class="mainBlock">
-        <h3>Dato</h3>
-        <div class="center">
-            <a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTag ?> datePickerButton">- 30</a>
-            <a href="?dato=<?=$prevWeek;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 7</a>
-            <a href="?dato=<?=$prevDay;?>" class="datePickerButton <?php echo $dateButtonTag ?>">- 1</a>
-            <b><?php echo $queryDate; ?></b>
-            <a href="?dato=<?=$nextDay;?>" class="datePickerButton">+ 1</a>
-            <a href="?dato=<?=$nextWeek;?>" class="datePickerButton">+ 7</a>
-            <a href="?dato=<?=$nextMonth;?>" class="datePickerButton">+ 30</a>
-        </div>
-    </div>
+
+
 
     <div class="mainBlock">
 
@@ -102,8 +101,9 @@ require 'verifysession.php';
             {
                 $queryProjector = 'j';
             }
-
         }
+
+
 
         // Query to get all rooms
         $roomSql = $db->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
@@ -189,25 +189,17 @@ require 'verifysession.php';
                     $bgColor = "999";
                     $rentedVal = 1;
                 }
-
-                // TODO Replace this with a PHP implementation for iteration 2
-                // This won't work (to my limited knowledge)/be difficult to get to communicate correctly with a database...
-                /*$mouseClickEvent = "onclick='clickedTimeElement(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");' ";
-                $mouseOverEvent = "onmouseover='addHoverToSelection(this, " . $i . ", " . $rentedVal . ", " . $roomId . ");'";
-                echo "<div class='timeBlock' " . $mouseClickEvent . $mouseOverEvent . " style='background-color: #" . $bgColor . ";'>" . str_pad($i + 8, 2, '0', STR_PAD_LEFT) . ":00</div>";*/
-
                 $renterIsLoggedIn = false;
                 $timeInfo = "Ledig!";
                 if ($isRented)
                 {
-
-                    if ($isRented->BrukerId == getUserIdFromName($_SESSION['user'], $db))
+                    if ($isRented->BrukerId == getUserIdFromName($_SESSION['user'], $db)) // Rented by logged in user
                     {
                         $timeInfo = "Du leier her!";
                         $renterIsLoggedIn = true;
                         $bgColor = "7fc79a";
                     }
-                    else
+                    else // Rented by someone else
                     {
                         $timeInfo = "Opptatt, leies av " . getUserFromId($isRented->BrukerId, $db)['Brukernavn'];
                     }
@@ -221,16 +213,17 @@ require 'verifysession.php';
                             <?php
                             if ($renterIsLoggedIn)
                             {
-                                echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "'>Avbestill</a>";
+                                echo "<a href='avbestill.php?date=" . $queryDate . "&roomid=" . $roomId . "&time=" . $isRented->Tidspunkt . "' class='button'>Avbestill</a>";
                             }
                             else if (!$isRented)
                             {
-                            ?>
+                                ?>
                                 <form method="post" action="bekreftelse.php?date=<?php echo $queryDate . "&time=" . $timestamp . ":00&roomid=" . $roomId ?>">
-                                    <label>Antall timer <input type="number" min="1" max="8" name ="hourinput" required=""></label>
+                                    <label>Antall timer <input type="number" min="1" max="8" value="1" name ="hourinput" required=""></label>
                                     <input type="submit" value="Book rom" name="booking">
                                 </form>
-                                <?php } ?>
+                                <?php
+                            } ?>
                         </div>
                     </div>
 
@@ -243,7 +236,7 @@ require 'verifysession.php';
         // Check if any rows were returned
         if ($roomSql->rowCount() <= 0)
         {
-            echo "<br /><br />No search results...";
+            echo "<p id='noResults'>Ingen resultater passer til søket... Prøv igjen med et breder søk.</p>";
         }
         ?>
     </div>

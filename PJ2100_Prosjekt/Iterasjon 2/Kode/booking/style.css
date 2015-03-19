@@ -56,11 +56,7 @@ header img {
 }
 #blockFilter .center
 {
-    width: 449px;
-}
-#blockDate .center
-{
-    width: 344px;
+    width: 818px;
 }
 .timeBlock input
 {
@@ -111,33 +107,22 @@ a:hover {
 {
     border: 1px solid #000;
 }
+.timeHover:hover
+{
+    border: 1px solid transparent !important;
+}
 .infoBlock
 {
     padding: 4px;
     font-size: 20px;
 }
 
-.button
-{
-    width: 54px;
-    padding: 6px;
-    display: inline;
-}
-.button:hover
-{
-    background-color: #000;
-    color: #fff;
-}
-.timeBlock, .button
-{
-    cursor:pointer;
-}
 .deactivated
 {
     cursor: default;
     pointer-events: none;
     text-decoration: none;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 #registerDiv {
@@ -163,12 +148,28 @@ a:hover {
 {
     display: block;
 }
-.datePickerButton
+.button
 {
     padding: 6px;
     display: inline-block;
     background-color: #ccc;
     text-decoration: none;
+}
+.button:hover
+{
+    background-color: #ddd;
+}
+.timeBlock, .button
+{
+    cursor: pointer;
+}
+
+#noResults
+{
+    color: #f06e67;
+    padding: 8px;
+    margin: 8px;
+    font-style: italic;
 }
 
 @media (max-width:440px)
