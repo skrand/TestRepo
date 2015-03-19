@@ -18,7 +18,7 @@ body {
 /*logo*/
 #logoDiv {
 	position: absolute;
-	left: 2.5%;
+	left: 3%;
 	top: 3%;
 	height: 13%;
 }
@@ -34,7 +34,7 @@ body {
 	position: absolute;
 	width: 13%;
 	height: 27%;
-	background-color: #f06e67;
+	background-color: #78557d;
 	color: #FFF;
 	font-weight: bold;
 	overflow: hidden;
@@ -67,19 +67,9 @@ body {
 	overflow: hidden;
 }
 
-#leftAside2 h1 {
-	color: #FFF;
-	font-weight: bold;
-	font-size: 90px;
-	margin-top: -4px;
-	margin-left: 20px;
-	line-height: 1;
-}
-
-#leftAside2 p {
-	font-size: 10px;
-	color: #FFF;
-	margin-top: -75px;
+#leftAside2 img{
+	width: 100%;
+	height: 100%;
 }
 /*artikkelene som skal være på alle sidene*/
 #leftArticle {
@@ -190,9 +180,6 @@ body {
 	text-align: center;
 }
 
-
-
-
 #leftAside2 {
 	display: none;
 }
@@ -207,33 +194,11 @@ footer {
 
 
 }
-
+/*Ipad*/
 @media screen and (min-width: 700px) and (max-width: 1350px) {
 .fill {
 	width: 90%;
-}
-	#leftAside2 {
-	padding: 1%;
-	left: 3%;
-	top: 51%;
-	position: absolute;
-	width: 13%;
-	height: 28%;
-	background-color: #face66;
-	overflow: hidden;
-}
 
-	#leftAside2 h1 {
-	font-size: 70px;
-	margin-top: 15px;
-	margin-left: 17px;
-}
-
-	#leftAside2 p {
-	font-size: 10px;
-	color: #FFF;
-	margin-top: -50px;
-}
 
 #leftAside {
 	line-height: 0.8;
@@ -246,3 +211,43 @@ footer {
 	height: 10%;
 }
 }
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait)
+and (-webkit-min-device-pixel-ratio: 1) {
+	
+	.fill {
+		width: 50%;
+	}
+
+	#centerDiv {
+		display:none;
+	}
+
+	#leftAside {
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	#leftAside p {
+		font-size: 24px;
+	}
+
+	#leftAside2 {
+		display: none;
+	}
+
+	#logoDiv {
+		display: none;
+	}
+
+	footer {
+		display: none;
+	}
+}
+
+
