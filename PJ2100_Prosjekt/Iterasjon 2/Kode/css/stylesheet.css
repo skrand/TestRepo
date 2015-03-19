@@ -197,7 +197,7 @@ footer {
 
 
 }
-
+/*Ipad*/
 @media screen and (min-width: 700px) and (max-width: 1350px) {
 .fill {
 	width: 90%;
@@ -236,3 +236,37 @@ footer {
 	height: 10%;
 }
 }
+
+@media screen and (min-width : 768px) and (max-device-width : 1024px) 
+and (orientation : portrait)
+and (-webkit-min-device-pixel-ratio: 1) {
+	
+	.fill {
+		width: 50%;
+	}
+
+	#centerDiv {
+		display:none;
+	}
+
+	#leftAside {
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	#leftAside2 {
+		display: none;
+	}
+
+	#logoDiv {
+		display: none;
+	}
+
+	footer {
+		display: none;
+	}
+}
+
+
