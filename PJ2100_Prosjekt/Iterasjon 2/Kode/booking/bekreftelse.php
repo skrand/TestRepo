@@ -25,13 +25,17 @@ $sql->execute(array(
     'hour' => $hourCount
 ));
 
-
 // Go back to index
 redirect();
-// TODO Replace redirect with function
 
 function redirect()
 {
-    header("Location: index.php?dato=" . $date);
+    // Legg på dato hvis den er satt, for å gå tilbake til den datoen når man har bestilt
+    $dateAppendix = "";
+    if (isset($_GET['date']))
+    {
+        $dateAppendix = "?dato=" . $_GET['date'];
+    }
+    header("Location: index.php" . $dateAppendix);
     die();
 }
