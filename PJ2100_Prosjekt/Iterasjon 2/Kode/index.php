@@ -52,7 +52,7 @@
 		</aside>
 
 		<!-- footer -->
-		<footer><p>Telefon: 22995063, Email: post@westerdals.no, Christian Kroghs gate 32</p>
+		<footer><p>Telefon: 22995063 - Email: post@westerdals.no - Christian Kroghs gate 32</p>
 		</footer>
 	</div>
 
