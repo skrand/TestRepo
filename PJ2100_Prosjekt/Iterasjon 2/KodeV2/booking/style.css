@@ -1,0 +1,164 @@
+/*CSS for bestillingssiden*/
+
+body {
+    font-family: helvetica;
+    margin: 0;
+    color: #444;
+    font-size: 14px;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    background-color: #78557d;
+    padding: 12px 0;
+}
+
+header img {
+    width: 240px;
+    margin: 0 auto;
+    display: block;
+}
+#content
+{
+
+}
+.mainBlock
+{
+    display: block;
+    background-color: #fff;
+    margin: 8px 0;
+}
+.mainBlock form
+{
+    margin: 0;
+}
+.mainBlock h3
+{
+    color: #78557d;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 0.4em 0;
+}
+.mainBlock p
+{
+    color: #000;
+    text-align: center;
+    margin: 0.4em 0;
+}
+.center
+{
+    width: 500px;
+    display: block;
+    margin: 0 auto;
+}
+#blockFilter .center
+{
+    width: 449px;
+}
+#blockDate .center
+{
+    width: 344px;
+}
+.timeBlock input
+{
+    width: 100%;
+}
+
+
+
+a {
+    font-family: verdana;
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #000;
+}
+
+.roomBlock
+{
+    display: block;
+    margin-bottom: 6px;
+    padding: 6px;
+    border-top: 1px solid #000;
+}
+
+.timeBlock
+{
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 6px;
+    text-decoration: none;
+    color: #000;
+    /*width: 54px;*/
+    width: 6%;
+    text-align: center;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+
+    /* No support for these yet, use at own risk */
+    -o-user-select: none;
+    user-select: none;
+}
+.timeBlock:hover
+{
+    border: 1px solid #000;
+}
+.infoBlock
+{
+    padding: 4px;
+    font-size: 14px;
+}
+
+.button
+{
+    width: 54px;
+    padding: 6px;
+    display: inline;
+}
+.button:hover
+{
+    background-color: #000;
+    color: #fff;
+}
+.timeBlock, .button
+{
+    cursor:pointer;
+}
+.deactivated
+{
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+#registerDiv {
+    position: absolute;
+    margin: auto;
+}
+
+.selected
+{
+    cursor: default;
+}
+.timeChild
+{
+    display: none;
+}
+.timeChildSelected
+{
+    display: block;
+}
+.datePickerButton
+{
+    padding: 6px;
+    display: inline-block;
+    background-color: #ccc;
+    text-decoration: none;
+}
