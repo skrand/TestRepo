@@ -9,21 +9,21 @@ require 'config.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<?php require 'header.php'; ?>
 <div id="registerDiv">
-<h1>Registrer ny bruker</h1>
-<form action="registeruser.php" method="post">
-    <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
-    <?php
-    // Notify user that the username is taken
-    if (isset($_GET['usernametaken']))
-        echo "<p class=''>Brukernavn er allerede i bruk.</p>";
-    ?>
-    <input type="password" placeholder="Passord" name="password" required="required"><br>
-    <br>
-    <input type="submit" value="Registrer">
-</form>
-<a href="../index.php">Tilbake til forsiden</a>
+    <h1>Registrer ny bruker</h1>
+    <form action="registeruser.php" method="post">
+        <input type="text" placeholder="Brukernavn" name="username" required="required"><br>
+        <?php
+        // Notify user that the username is taken
+        if (isset($_GET['usernametaken']))
+            echo "<p class=''>Brukernavn er allerede i bruk.</p>";
+        ?>
+        <input type="password" placeholder="Passord" name="password" required="required"><br>
+        <br>
+        <input type="submit" value="Registrer">
+    </form>
+    <a href="../index.php">Tilbake til forsiden</a>
 </div>
 </body>
 </html>

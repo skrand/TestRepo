@@ -139,8 +139,14 @@ a:hover {
 }
 
 #registerDiv {
-    position: absolute;
-    margin: auto;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+}
+#registerDiv input
+{
+    width: 100%;
 }
 
 .selected

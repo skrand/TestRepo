@@ -32,6 +32,6 @@ redirect();
 
 function redirect()
 {
-    header("Location: index.php?dato=" . $date);
+    header("Location: index.php?dato=" . $date . "shit");
     die();
 }

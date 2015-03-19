@@ -13,9 +13,7 @@ require 'verifysession.php';
     <script src="main.js"></script>
 </head>
 <body>
-<header>
-<a href="../index.php"><img src="../images/logo4.png"/></a>
-</header>
+<?php require 'header.php'; ?>
 
 <div id="content">
     <div id="blockFilter" class="mainBlock">
@@ -71,7 +69,7 @@ require 'verifysession.php';
     </div>
 
     <div class="mainBlock">
-        <h3>Rom</h3>
+
         <p>Trykk på et tidspunkt for å booke rom.</p>
         <?php
 
