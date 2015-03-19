@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'config.php';
+$db = new DB();
 
 // Redirect to index if some variables arent set
 if (!isset($_GET['roomid'])) redirect();
@@ -12,7 +13,7 @@ $date = $_GET['date'];
 $time = $_GET['time'];
 
 // Query
-$sql = $db->prepare("DELETE FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date AND Tidspunkt LIKE :time;");
+$sql = $db->database->prepare("DELETE FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date AND Tidspunkt LIKE :time;");
 $sql->setFetchMode(PDO::FETCH_OBJ);
 $sql->execute(array(
     'roomId' => $roomId,

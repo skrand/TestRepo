@@ -1,6 +1,7 @@
 <?php
-require 'config.php';
+require_once 'config.php';
 require 'verifysession.php';
+$db = new DB();
 ?>
 
 <html>
@@ -9,19 +10,25 @@ require 'verifysession.php';
     <script src="libs/main.js"></script>
 </head>
 <body>
+
+<!-- Header for siden -->
 <?php require 'header.php'; ?>
 
+<!-- Hovedinnholdet -->
 <div id="content">
+    <!-- Filtrering -->
     <div id="blockFilter" class="mainBlock">
         <h3>Filtrering</h3>
         <div class="center">
-            <form method="post">
-                <label><input type="checkbox" name="size1" value="2" checked>2 personer</label>
-                <label><input type="checkbox" name="size2" value="3" checked>3 personer</label>
-                <label><input type="checkbox" name="size3" value="4" checked>4 personer</label>
-                <label><input type="checkbox" name="projector" value="j">Må ha prosjektor</label>
-                <input type="submit" value="Filtrer" name="filter">
-
+            <div class="filterblock">
+                <form method="post">
+                    <label><input type="checkbox" name="size1" value="2" checked>2 personer</label>
+                    <label><input type="checkbox" name="size2" value="3" checked>3 personer</label>
+                    <label><input type="checkbox" name="size3" value="4" checked>4 personer</label>
+                    <label><input type="checkbox" name="projector" value="j">Må ha prosjektor</label>
+                    <input type="submit" value="Filtrer" name="filter">
+                </form>
+            </div>
                 <?php
                     // Set datoen
                     $queryDate = date('Y-m-d');
@@ -43,7 +50,7 @@ require 'verifysession.php';
                     $prevMonth = date('Y-m-d', strtotime($queryDate .' -1 month'));
                     $nextMonth = date('Y-m-d', strtotime($queryDate .' +1 month'));
                 ?>
-
+            <div class="filterblock">
                 <a href="?dato=<?=$prevMonth;?>" class="<?php echo $dateButtonTagDay ?> button">- 30</a>
                 <a href="?dato=<?=$prevWeek;?>" class="button <?php echo $dateButtonTagDay ?>">- 7</a>
                 <a href="?dato=<?=$prevDay;?>" class="button <?php echo $dateButtonTagDay ?>">- 1</a>
@@ -51,34 +58,18 @@ require 'verifysession.php';
                 <a href="?dato=<?=$nextDay;?>" class="button">+ 1</a>
                 <a href="?dato=<?=$nextWeek;?>" class="button">+ 7</a>
                 <a href="?dato=<?=$nextMonth;?>" class="button">+ 30</a>
-            </form>
+            </div>
         </div>
     </div>
 
-
-
-
-
+    <!-- Rom -->
     <div class="mainBlock">
-
         <p><i>Trykk på et tidspunkt for å booke rom.</i></p>
         <?php
 
         // Get all filter variables
         $querySizes = array(2, 3, 4);
-
         $queryProjector = "%";
-
-        /*if (isset($_POST['prevDay'])) // Previous day
-        {
-            $date = date('Y-m-d', strtotime(' +1 day'));
-        }
-        if (isset($_POST['nextDay'])) // Previous day
-        {
-            $date = date('Y-m-d', strtotime(' +1 day'));
-        }*/
-
-
         if (isset($_POST['filter']))
         {
             if (isset($_POST["size1"]))
@@ -99,17 +90,14 @@ require 'verifysession.php';
             }
         }
 
-
-
         // Query to get all rooms
-        $roomSql = $db->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
+        $roomSql = $db->database->prepare("SELECT * FROM Rom WHERE Storrelse IN (:size1, :size2, :size3) AND Prosjektor LIKE :projector;");
         $roomSql->setFetchMode(PDO::FETCH_OBJ);
         $roomSql->bindParam(':size1', $querySizes[0], PDO::PARAM_STR);
         $roomSql->bindParam(':size2', $querySizes[1], PDO::PARAM_STR);
         $roomSql->bindParam(':size3', $querySizes[2], PDO::PARAM_STR);
         $roomSql->bindParam(':projector', $queryProjector, PDO::PARAM_STR);
         $roomSql->execute();
-
 
         // Run through results of query
         while($rom = $roomSql->fetch())
@@ -127,65 +115,25 @@ require 'verifysession.php';
             echo "<p>Størrelse <span class='infoBlock'>" . $rom->Storrelse . "</span>" . " Prosjektor <span class='infoBlock'>" . $prosjektor . "</span></p>";
 
             // Query to get all rents of the set date
-            $sql = $db->prepare("SELECT * FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date;");
+            $sql = $db->database->prepare("SELECT * FROM LeieAvRom WHERE RomId LIKE :roomId AND Dato LIKE :date;");
             $sql->setFetchMode(PDO::FETCH_OBJ);
             $sql->execute(array(
                 'roomId' => $roomId,
                 'date' => $queryDate
             ));
 
-            // Populate array with boolean for whether the room is occupied for each hour
-            /*$rented = array_fill(0, 13, false);
-            while($rent = $sql->fetch())
-            {
-                for ($i = 8; $i <= 20; $i ++)
-                {
-                    $startTime = $rent->Tidspunkt;
-                    $hour = $i * 3600;
-                    $hours = $rent->AntallTimer;
-
-                    $start = strtotime($rent->Tidspunkt);
-                    $end = $start + (3600 * $hours);
-                    $cur = strtotime(date('H:i:s', $hour));
-
-                    if ($cur > $start - 1 && $cur < $end - 1)
-                    {
-                        $rented[$i - 8] = true;
-                    }
-                }
-            }*/
             $rented = array_fill(0, 13, null);
             while($rent = $sql->fetch())
             {
                 for ($i = 8; $i <= 20; $i ++)
                 {
-                    $startTime = $rent->Tidspunkt;
-                    $hour = $i * 3600;
-                    $hours = $rent->AntallTimer;
+                    $startTime = $rent->Tidspunkt; // Start tidspunkt
+                    $hour = $i * 3600; // Time i loopen
+                    $cur = strtotime(date('H:i:s', $hour)); // Time i loopen til format
 
-                    $start = strtotime($rent->Tidspunkt);
-                    $end = $start + (3600 * $hours);
-                    $cur = strtotime(date('H:i:s', $hour));
-                   /* echo "START: " . $startTime;
-                    echo "<br>CUR: " . date('H:i:s', $cur);
-                    die();*/
-
-                    /*if ($cur > $start - 1 && $cur < $end - 1)
+                    if ($startTime == date('H:i:s', $cur)) // Hvis time i loopen er samme som timen i bookingen
                     {
-                        $rented[$i - 8] = $rent;
-                    }*/
-
-                    if ($startTime == date('H:i:s', $cur))
-                    {
-                        /*$timeA = $startTime;
-                        $timeB = date('H:i:s', $hour);
-                        echo $timeA;
-                        echo "<br>";
-                        echo $timeB;
-                        echo "<br>";
-                        $test = $timeA == $timeB;
-                        var_dump($test);*/
-                        //die();
+                        // Legg til bookingen i arrayen
                         $rented[$i - 8] = $rent;
                     }
                 }
@@ -199,9 +147,10 @@ require 'verifysession.php';
                 $rentButtonClass = " buttonBook";
                 $renterIsLoggedIn = false;
                 $timeInfo = "Ledig!";
+
                 if ($isRented)
                 {
-                    if ($isRented->BrukerId == getUserIdFromName($_SESSION['user'], $db)) // Rented by logged in user
+                    if ($isRented->BrukerId == $db->getUserIdFromName($_SESSION['user'])) // Rented by logged in user
                     {
                         $timeInfo = "Du leier her!";
                         $renterIsLoggedIn = true;
@@ -210,7 +159,7 @@ require 'verifysession.php';
                     }
                     else // Rented by someone else
                     {
-                        $timeInfo = "Opptatt, leies av " . getUserFromId($isRented->BrukerId, $db)['Brukernavn'];
+                        $timeInfo = "Opptatt, leies av " . $db->getUserFromId($isRented->BrukerId)['Brukernavn'];
                         $bgColor = "999";
                     }
                 }

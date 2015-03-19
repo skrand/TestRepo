@@ -1,83 +1,92 @@
 <?php
 session_start();
 
-// Set opp forbindelse med databasen
-//*
-$db_host = "127.0.0.1";
-$db_name = "GruppeRomBooking";
-$db_user = "root";
-$db_pass = "";
-/*/
-
-$db_host = "tordtroen.com.mysql";
-$db_name = "tordtroen_com";
-$db_user = "tordtroen_com";
-$db_pass = "3wzQyGsm";
-//*/
-
-// TODO Fix this shit
-// Put in a class DB instead, OOP 4 life
-$db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
-
-function verifyLogin($username, $password, $db)
+class DB
 {
-    $sql = $db->prepare("SELECT Passord FROM Bruker WHERE Brukernavn LIKE :username;");
-    $sql->setFetchMode(PDO::FETCH_OBJ);
-    $sql->execute(array(
-        'username' => $username
-    ));
+    // Databaseforbindelse
+    public $database = null;
 
-    // Check if the password matches the password in the database
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
-    if (!password_verify($password, $result['Passord']))
+    // Database instillinger
+    /*private $dbHost = "127.0.0.1";
+    private $dbName = "GruppeRomBooking";
+    private $dbUser = "root";
+    private $dbPass = "";*/
+    private $dbHost = "tordtroen.com.mysql";
+    private $dbName = "tordtroen_com";
+    private $dbUser = "tordtroen_com";
+    private $dbPass = "3wzQyGsm";
+
+    // Konstruktør
+    function __construct()
     {
-        header("Location: ../index.php?badlogin");
-        die();
+        $this->database = new PDO("mysql:host=$this->dbHost;dbname=$this->dbName", $this->dbUser, $this->dbPass);
     }
-}
 
-function getUserIdFromName($username, $db)
-{
-    $sql = $db->prepare("SELECT * FROM Bruker WHERE Brukernavn LIKE :username;");
-    $sql->setFetchMode(PDO::FETCH_OBJ);
-    $sql->execute(array(
-        'username' => $username
-    ));
+    // Verifiser om loginen er godkjent
+    public function verifyLogin($username, $password)
+    {
+        $sql = $this->database->prepare("SELECT Passord FROM Bruker WHERE Brukernavn LIKE :username;");
+        $sql->setFetchMode(PDO::FETCH_OBJ);
+        $sql->execute(array(
+            'username' => $username
+        ));
 
-    // Check if the password matches the password in the database
-    $userid = (int)$sql->fetch(PDO::FETCH_ASSOC)['BrukerId'];
-    return $userid;
-}
+        // Check if the password matches the password in the database
+        $result = $sql->fetch(PDO::FETCH_ASSOC);
+        if (!password_verify($password, $result['Passord']))
+        {
+            header("Location: ../index.php?badlogin");
+            die();
+        }
+    }
 
-function getUserFromId($id, $db)
-{
-    $sql = $db->prepare("SELECT * FROM Bruker WHERE BrukerId LIKE :brukerid;");
-    $sql->setFetchMode(PDO::FETCH_OBJ);
-    $sql->execute(array(
-        'brukerid' => $id
-    ));
+    // Gir brukerid til et gitt brukernavn
+    public function getUserIdFromName($username)
+    {
+        $sql = $this->database->prepare("SELECT * FROM Bruker WHERE Brukernavn LIKE :username;");
+        $sql->setFetchMode(PDO::FETCH_OBJ);
+        $sql->execute(array(
+            'username' => $username
+        ));
 
-    $results = $sql->fetch(PDO::FETCH_ASSOC);
-    return $results;
-}
+        // Check if the password matches the password in the database
+        $userid = (int)$sql->fetch(PDO::FETCH_ASSOC)['BrukerId'];
+        return $userid;
+    }
 
-function isValidSession()
-{
-    if (!isset($_SESSION['user'])) return false;
+    // Gir bruker rad fra databasen til en gitt brukerid
+    public function getUserFromId($id)
+    {
+        $sql = $this->database->prepare("SELECT * FROM Bruker WHERE BrukerId LIKE :brukerid;");
+        $sql->setFetchMode(PDO::FETCH_OBJ);
+        $sql->execute(array(
+            'brukerid' => $id
+        ));
 
-    if (strlen($_SESSION['user']) <= 0) return false;
+        $results = $sql->fetch(PDO::FETCH_ASSOC);
+        return $results;
+    }
 
-    // Remember to return something if none of the above is true... or else the function returns NULL...PHYAY
-    return true;
-}
+    // Sjekker om sesjonen er valid
+    public function isValidSession()
+    {
+        if (!isset($_SESSION['user'])) return false;
 
-function usernameIsUnique($username, $db)
-{
-    $sql = $db->prepare("SELECT COUNT(*) FROM Bruker WHERE Brukernavn LIKE :username;");
-    $sql->setFetchMode(PDO::FETCH_OBJ);
-    $sql->execute(array(
-        'username' => $username
-    ));
-    $count = (int)$sql->fetch(PDO::FETCH_NUM)[0];
-    return $count === 0;
+        if (strlen($_SESSION['user']) <= 0) return false;
+
+        // Remember to return something if none of the above is true... or else the function returns NULL...
+        return true;
+    }
+
+    // Sjekker om brukernavnet finnes i database
+    public function usernameIsUnique($username)
+    {
+        $sql = $this->database->prepare("SELECT COUNT(*) FROM Bruker WHERE Brukernavn LIKE :username;");
+        $sql->setFetchMode(PDO::FETCH_OBJ);
+        $sql->execute(array(
+            'username' => $username
+        ));
+        $count = (int)$sql->fetch(PDO::FETCH_NUM)[0];
+        return $count === 0;
+    }
 }

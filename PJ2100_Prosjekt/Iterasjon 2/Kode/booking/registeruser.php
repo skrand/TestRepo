@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'config.php';
+$db = new DB();
 
 // Check if username and password is set
 if (!isset($_POST['username'])) redirect();
@@ -10,7 +11,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 // Verify that the username is unique
-if (usernameIsUnique($username, $db) === false)
+if ($db->usernameIsUnique($username) === false)
 {
     // Redirect to registerpage with name taken flag
     header("Location: register.php?usernametaken");
@@ -21,7 +22,7 @@ if (usernameIsUnique($username, $db) === false)
 $passhash = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert the new user into the database
-$sql = $db->prepare("INSERT INTO Bruker (Brukernavn, Passord) VALUES (:user, :pass);");
+$sql = $db->database->prepare("INSERT INTO Bruker (Brukernavn, Passord) VALUES (:user, :pass);");
 $sql->execute(array(
     'user' => $username,
     'pass' => $passhash

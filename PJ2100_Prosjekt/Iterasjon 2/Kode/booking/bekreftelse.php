@@ -1,6 +1,7 @@
 <?php
-require 'config.php';
+require_once 'config.php';
 require 'verifysession.php';
+$db = new DB();
 
 // Redirect to index if variables aren't set
 //if (!isset($_POST['hourinput']) || (int)$_POST['hourinput'] <= 0) redirect();
@@ -16,8 +17,8 @@ $time = $_GET['time'];
 $roomid = $_GET['roomid'];
 
 // Inser the new booking to the database
-$userid = getUserIdFromName($_SESSION['user'], $db);
-$sql = $db->prepare("INSERT INTO LeieAvRom (RomId, BrukerId, Dato, Tidspunkt) VALUES (:roomid, :userid, :date, :time);");
+$userid = $db->getUserIdFromName($_SESSION['user']);
+$sql = $db->database->prepare("INSERT INTO LeieAvRom (RomId, BrukerId, Dato, Tidspunkt) VALUES (:roomid, :userid, :date, :time);");
 $sql->execute(array(
     'roomid' => $roomid,
     'userid' => $userid,

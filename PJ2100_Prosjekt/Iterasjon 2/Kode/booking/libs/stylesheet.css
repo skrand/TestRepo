@@ -1,4 +1,4 @@
-/*CSS for bestillingssiden*/
+/* CSS for bookingsiden */
 
 body {
     font-family: helvetica;
@@ -8,6 +8,7 @@ body {
     margin: 0;
 }
 
+/* Header */
 header {
     width: 100%;
     background-color: #78557d;
@@ -19,53 +20,143 @@ header img {
     margin: 0 auto;
     display: block;
 }
-#content
-{
-    
-}
-.mainBlock
-{
+
+/* Innhold */
+.mainBlock {
     display: block;
     background-color: #fff;
     margin: 8px auto;
     width: 100%;
 }
-.mainBlock form
-{
+
+.mainBlock form {
     margin: 0;
 }
-.mainBlock h3
-{
+
+.mainBlock h3 {
     color: #78557d;
     display: inline-block;
     width: 100%;
     text-align: center;
     margin: 0.4em 0;
-    font-size: 1.5em;
+    font-size: 22px;
 }
-.mainBlock p
-{
+
+.mainBlock p {
     color: #000;
     text-align: center;
     margin: 0.4em 0;
 }
-.center
-{
+
+.center {
     width: 500px;
     display: block;
     margin: 0 auto;
 }
-#blockFilter .center
-{
-    width: 828px;
+
+#blockFilter .center {
+    width: 840px;
 }
-.timeBlock input
-{
+
+/* Stril for dato-velger knapper (når de er deaktivert) */
+.deactivated {
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+    background-color: #eee !important;
+}
+
+.roomBlock {
+    display: block;
+    margin-bottom: 6px;
+    padding: 6px;
+    border-top: 1px solid #000;
+}
+
+/* Stil for tidene og tilhørende elementer */
+.timeBlock {
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 6px;
+    text-decoration: none;
+    color: #000;
+    width: 6%;
+    min-width: 70px;
+    margin-bottom: 4px;
+    text-align: center;
+
+    /* For å hindre å velge teksten når man trykker på tidene */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.timeBlock:hover {
+    border: 1px solid #000;
+}
+
+.timeHover:hover {
+    border: 1px solid transparent !important;
+}
+
+.timeBlock input {
     width: 100%;
 }
 
+.infoBlock {
+    padding: 4px;
+    font-size: 20px;
+}
 
+.timeChild {
+    display: none;
+}
 
+.timeChildSelected {
+    display: block;
+}
+
+.buttonBook {
+    background-color: #7fc79a;
+}
+
+.timeBlock, .button {
+    cursor: pointer;
+}
+
+/* Stil for valgt tid (for å fjerne håndpekeren) */
+.selected {
+    cursor: default;
+}
+
+/* Stil for registreringssiden */
+#registerDiv {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+}
+
+#registerDiv input {
+    width: 100%;
+}
+
+/* Teksten for ingen resultater */
+#noResults {
+    color: #f06e67;
+    padding: 8px;
+    margin: 8px;
+    font-style: italic;
+}
+
+/* Stil for dato og filter boksen */
+.filterblock {
+    display: inline-block;
+}
+
+/* Generelle stiler */
 a {
     font-family: verdana;
     color: #000;
@@ -76,151 +167,58 @@ a:hover {
     color: #000;
 }
 
-.roomBlock
-{
-    display: block;
-    margin-bottom: 6px;
-    padding: 6px;
-    border-top: 1px solid #000;
-}
-
-.timeBlock
-{
-    border: 1px solid transparent;
-    display: inline-block;
-    padding: 6px;
-    text-decoration: none;
-    color: #000;
-    /*width: 54px;*/
-    width: 6%;
-    min-width: 70px;
-    margin-bottom: 4px;
-    text-align: center;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-
-    /* No support for these yet, use at own risk */
-    -o-user-select: none;
-    user-select: none;
-}
-.timeBlock:hover
-{
-    border: 1px solid #000;
-}
-.timeHover:hover
-{
-    border: 1px solid transparent !important;
-}
-.infoBlock
-{
-    padding: 4px;
-    font-size: 20px;
-}
-
-.deactivated
-{
-    cursor: default;
-    pointer-events: none;
-    text-decoration: none;
-    background-color: #eee !important;
-}
-
-#registerDiv {
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-    width: 400px;
-}
-#registerDiv input
-{
-    width: 100%;
-}
-
-.selected
-{
-    cursor: default;
-}
-.timeChild
-{
-    display: none;
-}
-.timeChildSelected
-{
-    display: block;
-}
-.button
-{
+.button {
     border: 1px solid transparent;
     padding: 6px;
     display: inline-block;
     background-color: #ccc;
     text-decoration: none;
 }
-.button:hover
-{
+
+.button:hover {
     border: 1px solid #000;
 }
-.buttonBook
-{
-    background-color: #7fc79a;
-}
 
-.timeBlock, .button
-{
-    cursor: pointer;
-}
-
-#noResults
-{
-    color: #f06e67;
-    padding: 8px;
-    margin: 8px;
-    font-style: italic;
-}
-
-@media (max-width:256px)
-{
-    header img
-    {
+/* Tilpasninger til forskjellige skjermstørrelser */
+@media (max-width: 256px) {
+    header img {
         width: 100%;
     }
 }
 
-@media (max-width:440px)
-{
-    #registerDiv
-    {
+@media (max-width: 440px) {
+    #registerDiv {
         width: 95%;
         padding: 0 2.5%;
     }
 }
-@media (max-width:1052px)
-{
-    .timeBlock
-    {
+
+@media (max-width: 1052px) {
+    .timeBlock {
         width: 5%;
     }
 }
 
-@media (max-width:700px)
-{
-    .timeBlock
-    {
+@media (max-width: 700px) {
+    .timeBlock {
         width: 70px;
     }
 }
-@media (max-width:838px)
-{
-    #blockFilter .center
-    {
-        width: 100%;
+
+@media (max-width: 848px) {
+    #blockFilter .center {
+        width: 450px;
     }
 }
-@media (min-width:1280px)
-{
-    #content
-    {
 
+@media (min-width: 1280px) {
+    #content {
+
+    }
+}
+
+@media (max-width: 455px) {
+    #blockFilter .center {
+        width: 100%;
     }
 }

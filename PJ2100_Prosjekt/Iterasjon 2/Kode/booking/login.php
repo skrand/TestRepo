@@ -1,5 +1,6 @@
 <?php
-require 'config.php';
+require_once 'config.php';
+$db = new DB();
 
 // Check if username and password is set
 if (!isset($_POST['password'])) redirect();
@@ -8,7 +9,7 @@ if (!isset($_POST['username'])) redirect();
 // Verify the logininfo
 $username = $_POST['username'];
 $password = $_POST['password'];
-verifyLogin($username, $password, $db);
+$db->verifyLogin($username, $password, $db);
 
 // Set current session
 $_SESSION['user'] = $username;
