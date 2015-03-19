@@ -229,7 +229,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
 	#leftAside {
 		top: 0;
 		left: 0;
-		width: 100%;
+		width: 50%;
 		height: 100%;
 	}
 
@@ -238,8 +238,19 @@ and (-webkit-min-device-pixel-ratio: 1) {
 	}
 
 	#leftAside2 {
-		display: none;
+		top: 0;
+		left: 50%;
+		height: 100%;
+		width: 50%;
+		background-color: #face66;
 	}
+
+	#leftAside2 img{
+		height: 30%;
+
+	}
+
+	
 
 	#logoDiv {
 		display: none;
